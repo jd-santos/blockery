@@ -38,6 +38,7 @@ There is no automated test, build, deploy, or publish command yet.
 - [README.md](./README.md): architecture, repository layout, and operating rules.
 - [CONTEXT.md](./CONTEXT.md): canonical definitions for pack, deployment target, target variation, and runtime state.
 - [deploy/README.md](./deploy/README.md): target layout, overlay policy, and intended deployment flow.
+- [docs/tooling.md](./docs/tooling.md): pinned Packwiz build and update procedure.
 - [docs/](./docs/): add durable operating notes here when the relevant workflow is known.
 
 ## File-specific notes

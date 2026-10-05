@@ -19,6 +19,7 @@ The Minecraft version, mod loader, and Bloom deployment method are not set yet. 
 - `resourcepacks/`, `shaderpacks/`: optional client assets managed by the pack.
 - `deploy/targets/`: reviewed settings that differ between the main and creative Bloom targets. Shared pack content does not belong here.
 - `docs/`: operating notes and decisions that should travel with the repository.
+- `docs/tooling.md`: pinned local tooling and its controlled update procedure.
 - `CONTEXT.md`: canonical language for the pack, deployment targets, and runtime state.
 - `.packwizignore`: files that belong in the repository but must not be installed into a Minecraft instance.
 - `AGENTS.md`: repository context and constraints for AI-assisted work.
