@@ -1,0 +1,3 @@
+# Packwiz hashes raw file bytes. Disable line-ending conversion so hashes stay
+# stable when contributors use different operating systems.
+* -text

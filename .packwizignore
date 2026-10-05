@@ -1,0 +1,44 @@
+# Repository metadata and documentation
+/.git/
+/.github/
+/.gitattributes
+/.gitignore
+/.packwizignore
+/AGENTS.md
+/README.md
+/docs/
+/deploy/
+**/.gitkeep
+
+# Local credentials and machine-specific settings
+/.env
+/.env.*
+!/.env.example
+*.pem
+*.key
+/secrets/
+/server.properties
+!/server.properties.example
+
+# Server runtime state
+/world/
+/world_nether/
+/world_the_end/
+/logs/
+/crash-reports/
+/backups/
+/server-runtime/
+/ops.json
+/whitelist.json
+/banned-players.json
+/banned-ips.json
+/usercache.json
+/eula.txt
+
+# Local caches and generated distribution artifacts
+/.DS_Store
+/Thumbs.db
+/.cache/
+/.packwiz-cache/
+*.mrpack
+*.zip
