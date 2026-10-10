@@ -27,10 +27,9 @@ shasum -a 256 "$(command -v packwiz)"
 Build the pinned source revision directly into the user's command path:
 
 ```sh
-GOBIN="$HOME/.local/bin" go install github.com/packwiz/packwiz@ef87d96
+GOBIN="$HOME/.local/bin" go install github.com/packwiz/packwiz@ef87d964f8cb
 ```
 
 Do not replace the pinned revision with `@latest`. To update Packwiz, choose and
 record a new commit, build it locally, inspect its embedded module information,
 and review the changes it produces in a disposable pack before adopting it here.
-

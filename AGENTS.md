@@ -14,6 +14,7 @@
 - Treat this repository as the canonical desired configuration. Do not use files copied from a live server without reviewing them first.
 - Never commit or package secrets, private keys, webhook URLs, RCON credentials, player/admin state, worlds, logs, crash reports, or backups.
 - Never commit Floodgate's `key.pem`. Possession of it can allow impersonation of Floodgate-authenticated players.
+- Never commit `config/NoChatReports/NCR-Encryption.json` or personal `config/axiom/axiom.json` settings.
 - Preserve the client/server side declared in Packwiz metadata. Geyser and Floodgate are server-only if they are added.
 - Run `packwiz refresh` after manually adding, changing, moving, or removing indexed pack files.
 - Keep repository-only files excluded in `.packwizignore` so they are not copied into Minecraft instances.

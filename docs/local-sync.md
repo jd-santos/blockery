@@ -24,7 +24,7 @@ Create separate Syncthing folders for the data that matters. This is easier to a
 | --- | --- | --- | --- |
 | Blockery schematics | `schematics/` | Litematica and WorldEdit schematic files | Sync |
 | Blockery Litematica state | `config/litematica/` | Per-world placements, selections, and server profiles | Sync between trusted devices |
-| Blockery Axiom assets | `config/axiom/` | Blueprints, hotbars, and tool presets | Sync with the ignores below |
+| Blockery Axiom state | `config/axiom/` | Preferences, blueprints, hotbars, and tool presets | Sync with the ignores below |
 | Blockery MiniHUD state | `config/minihud/` | Per-world MiniHUD state | Optional |
 | Blockery Stendhal books | `config/stendhal/books/` | Personal and server documentation books | Optional |
 | Blockery JEI state | `config/jei/world/` | Per-world bookmarks and lookup history | Optional |
@@ -34,16 +34,15 @@ The current instance has Litematica state for local worlds and multiplayer serve
 
 ## Axiom ignores
 
-The repository already manages `config/axiom/axiom.json` as a shared default. When syncing `config/axiom/`, add this `.stignore` file inside that directory on every device:
+The pack leaves Axiom preferences to each player. To carry yours between devices, sync `config/axiom/` and add this `.stignore` file inside that directory on every device:
 
 ```text
 (?d).DS_Store
 (?d).axiom.json.backup
-(?d)axiom.json
 (?d)imgui.ini
 ```
 
-This keeps Packwiz responsible for the shared Axiom configuration while Syncthing carries personal content:
+This syncs `axiom.json` along with personal content in:
 
 - `blueprints/`
 - `tool_presets/`
@@ -51,13 +50,14 @@ This keeps Packwiz responsible for the shared Axiom configuration while Syncthin
 
 Hotbar filenames can include server names or addresses. Keep them in the private sync folder even if the contents seem harmless.
 
+`axiom.json` can also contain an editor layout tied to a display size. Check the layout after opening Axiom on a device with a different screen.
+
 Syncthing does not synchronize `.stignore` itself, and it only reads that file from the root of the corresponding Syncthing folder. See Syncthing's [Ignoring Files documentation](https://docs.syncthing.net/users/ignoring.html) for the pattern rules.
 
 ## Packwiz-managed files
 
 Do not separately sync files already managed by `index.toml`. In particular:
 
-- `config/axiom/axiom.json`
 - `config/litematica.json`
 - `config/minihud.json`
 - the tracked files directly under `config/jei/`

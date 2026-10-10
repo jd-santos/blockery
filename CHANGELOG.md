@@ -16,3 +16,4 @@ This project does not currently declare a Semantic Versioning policy.
 
 - Record Fabric Loader 0.19.5 as the shared pack loader.
 - Keep personal and machine-specific Minecraft state outside the managed pack.
+- Keep generated No Chat Reports encryption data and personal Axiom settings out of the published pack.
