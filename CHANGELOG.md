@@ -10,6 +10,7 @@ This project does not currently declare a Semantic Versioning policy.
 ### Added
 
 - Add the initial Minecraft 1.21.10 Fabric pack with the enabled mods, reviewed configuration, and client resource packs from the current Prism Launcher instance.
+- Document recommended Syncthing folders for personal schematics and mod state.
 
 ### Changed
 
