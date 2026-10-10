@@ -1,8 +1,8 @@
 # Blockery
 
-Vicious Blockery is a Minecraft server for friends and family that still feels close to vanilla. Mods add building tools, smoother everyday play, and performance fixes. If you're looking to join, the [Getting Started guide](https://blockery.notion.site/Getting-Started-568ff72b8dd24ce580cb377cfa1ffeaa) has the server details and setup steps.
+Vicious Blockery is a lightly-modded private Minecraft server for friends and family. Mods mostly target building tools, smoother everyday play, and performance fixes. If you're looking to join, the [Getting Started guide](https://blockery.notion.site/Getting-Started-568ff72b8dd24ce580cb377cfa1ffeaa) has the server details and setup steps.
 
-This repository is where the pack lives. It records the Minecraft version, mods, resource packs, and shared settings so updates can be made in one place. The client pack is optional for players, and the same base is intended for the survival and creative servers. It currently uses **Minecraft 1.21.10** and **Fabric Loader 0.19.5**. Server deployment and Modrinth publishing are still being set up.
+This repository records the Minecraft version, mods, resource packs, and shared settings so updates can be made in one place. The client pack is optional for players, and the same base is intended for the survival and creative servers. It currently uses **Minecraft 1.21.10** and **Fabric Loader 0.19.5**. Server deployment and Modrinth publishing are still being set up.
 
 ## Try the pack in Prism Launcher
 
