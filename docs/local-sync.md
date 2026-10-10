@@ -30,7 +30,7 @@ Create separate Syncthing folders for the data that matters. This is easier to a
 | Blockery JEI state | `config/jei/world/` | Per-world bookmarks and lookup history | Optional |
 | Blockery Xaero data | `xaero/` | Maps and waypoints | Optional; large and frequently updated |
 
-The current instance has Litematica state for local worlds and multiplayer servers, plus schematic files in both `.litematic` and `.schem` formats. Some filenames expose server names or addresses, so keep these Syncthing folders limited to trusted devices.
+Litematica state can include server names or addresses in filenames. Keep these folders limited to devices you trust.
 
 ## Axiom ignores
 
@@ -48,7 +48,7 @@ This syncs `axiom.json` along with personal content in:
 - `tool_presets/`
 - `hotbars/`
 
-Hotbar filenames can include server names or addresses. Keep them in the private sync folder even if the contents seem harmless.
+Hotbar filenames can also include server names or addresses.
 
 `axiom.json` can also contain an editor layout tied to a display size. Check the layout after opening Axiom on a device with a different screen.
 

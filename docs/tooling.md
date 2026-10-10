@@ -5,7 +5,7 @@
 Packwiz is a local build-time tool. It is not installed on either Bloom server
 and is not required while Minecraft is running.
 
-The approved local build is pinned to:
+This pack was prepared with the following Packwiz build:
 
 - Source: `github.com/packwiz/packwiz`
 - Commit: `ef87d964f8cb`
@@ -22,9 +22,9 @@ go version -m "$(command -v packwiz)"
 shasum -a 256 "$(command -v packwiz)"
 ```
 
-### Rebuild the approved version
+### Rebuild this version
 
-Build the pinned source revision directly into the user's command path:
+To build the same revision into `$HOME/.local/bin`:
 
 ```sh
 GOBIN="$HOME/.local/bin" go install github.com/packwiz/packwiz@ef87d964f8cb

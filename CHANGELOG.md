@@ -9,11 +9,10 @@ This project does not currently declare a Semantic Versioning policy.
 
 ### Added
 
-- Add the initial Minecraft 1.21.10 Fabric pack with the enabled mods, reviewed configuration, and client resource packs from the current Prism Launcher instance.
-- Document recommended Syncthing folders for personal schematics and mod state.
+- Add the initial Minecraft 1.21.10 Fabric pack with pinned mods, reviewed configuration, and two client resource packs.
+- Add a guide for syncing local client data between devices.
 
 ### Changed
 
 - Record Fabric Loader 0.19.5 as the shared pack loader.
-- Keep personal and machine-specific Minecraft state outside the managed pack.
-- Keep generated No Chat Reports encryption data and personal Axiom settings out of the published pack.
+- Keep personal Axiom settings and generated No Chat Reports encryption data outside the public pack.
