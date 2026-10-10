@@ -9,7 +9,7 @@ Git and Packwiz will be the source of truth for the desired Minecraft pack confi
 - **Fallback:** offer a Packwiz Installer-based instance for people who use a compatible launcher and do not use Modrinth.
 - **Bedrock:** if Bedrock access is added, run Geyser and Floodgate on the server side. Keep Floodgate's private key out of Git.
 
-The Minecraft version, mod loader, and Bloom deployment method are not set yet. Initialize Packwiz after choosing the version and loader, then import existing mods and configs after reviewing them for secrets and runtime data.
+The pack currently targets Minecraft 1.21.10 with Fabric Loader 0.19.5. The Bloom deployment method is not set yet.
 
 ## Repository layout
 
@@ -44,13 +44,14 @@ shared Packwiz server build
 
 Only intentional differences belong in a target overlay. See [`deploy/README.md`](deploy/README.md) for the current layout and rules.
 
-## Getting started
+## Working with the pack
 
-After deciding on the Minecraft version and loader:
+The Packwiz definition is initialized at the repository root. After changing indexed files, refresh and inspect the pack:
 
 ```sh
 cd ~/Repos/blockery
-packwiz init
+packwiz refresh
+packwiz list
 ```
 
 Then add mods and configs through Packwiz, review changes with Git, and build the client distribution for Modrinth. Deployment and publishing instructions will be added after the Bloom workflow and hosting location are confirmed.

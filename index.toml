@@ -1,0 +1,449 @@
+hash-format = "sha256"
+
+[[files]]
+file = "CHANGELOG.md"
+hash = "b09b013f26c578f7caf6116389aaf4b7de507a0ead2bee8f79eb218bfd6c7d59"
+
+[[files]]
+file = "config/NoChatReports/NCR-Client.json"
+hash = "edfe78d985fe67dce28104f3d87673e94c89134144451c291ecedcd2e2c3b480"
+
+[[files]]
+file = "config/NoChatReports/NCR-Common.json"
+hash = "0eaad2630bd70ade719f7810e805810ada25379269ea194e43d3eea30c51dec0"
+
+[[files]]
+file = "config/NoChatReports/NCR-ServerPreferences.json"
+hash = "df32843b853e0a493ef3a9b1e39276818294353fbb0d833f7f61e77da0f5bca1"
+
+[[files]]
+file = "config/appleskin.json5"
+hash = "65edc28ca2bf6bd3e3684ae545fb74bcc0ec935a40d6ac60cb68c00c152e34fb"
+
+[[files]]
+file = "config/armorposer.toml"
+hash = "3d722c9b0301d7b8766ac9ee1aa5ca52ad3a46012185a1db2fe348aece6534d3"
+
+[[files]]
+file = "config/audioplayer/audioplayer-server.properties"
+hash = "503bee62d7556e4b0058addb2afb383d49744f0378265fd7b043a584f6d415f1"
+
+[[files]]
+file = "config/axesareweapons.json5"
+hash = "0abb77ff7bac93972090e77b8171d3f7976c500ed2be4bd946826abd17db200a"
+
+[[files]]
+file = "config/bookshelfinspector-config.yml"
+hash = "c6f229c654b10119ef04729c502e8af77f295a50b325727fb6b2e3c690555233"
+
+[[files]]
+file = "config/collective.json5"
+hash = "600046b205e20aa3a2ff5af8a66a202c00a97b1c27a6c0675211dbe11d4c0b5f"
+
+[[files]]
+file = "config/entity_texture_features.json"
+hash = "bd66edf9d1a72cd717bbe9b17b41ffd16963b089493e5ddae3d3ad69153105ba"
+
+[[files]]
+file = "config/etf_warnings.json"
+hash = "a5ba22e63061c1fb67f0f895f17681351eaeccc225faef966c29ee630593275e"
+
+[[files]]
+file = "config/fabric/indigo-renderer.properties"
+hash = "004786b2488ea8e6f7c1e56e428e2bd674c289f6e24ba6d04168680092f3ad3a"
+
+[[files]]
+file = "config/fallingtree.json"
+hash = "9704d03d869a866e68c5e783025c8720df6d35e3e76c56080e08e9bf6473a341"
+
+[[files]]
+file = "config/ferritecore.mixin.properties"
+hash = "fddb9f45485b7ae24191e3d94aa6e94a31016a8d4938d970d7f9877c79235732"
+
+[[files]]
+file = "config/horsestatsmod.json5"
+hash = "23f33c5d12ea09f3d3f4e04d7729923505fc89a80d0a39a39606763b5a91c6db"
+
+[[files]]
+file = "config/immediatelyfast.json"
+hash = "9a1ae7577440d36732b4d34885195b37423a3e8b906ff8602220bc0447969d15"
+
+[[files]]
+file = "config/jei/blacklist.json"
+hash = "b4174dc6e985aa90be5002c14e94b956d8d586683c44b7b6710c44d08fb13648"
+
+[[files]]
+file = "config/jei/ingredient-list-mod-sort-order.ini"
+hash = "140ede8807d2fb23a9d647c45c759cb0b06f3be115260962a8997af09cec2712"
+
+[[files]]
+file = "config/jei/ingredient-list-type-sort-order.ini"
+hash = "f6faa8cf111795b26bb59fe7618381fba1879ddc35dbac176297f57941496ff6"
+
+[[files]]
+file = "config/jei/jei-client.ini"
+hash = "faea2874d4767435586a4c481f529d2a80651950d17bfad221ca54f6f671c1b1"
+
+[[files]]
+file = "config/jei/jei-colors.ini"
+hash = "5c4309692d2a28852f96d68d9f40cf0a79aa0e5dce8a07d8d7c5a7cfcefe8b89"
+
+[[files]]
+file = "config/jei/jei-debug.ini"
+hash = "7cc122a7c677288500b9c22aff567433d1201bd12e2481c922dfbc5f636dfd2b"
+
+[[files]]
+file = "config/jei/jei-mod-id-format.ini"
+hash = "ecc9cd8affc5aa2c663c7ab89a05b80e9312bfa94ee41fce0c5d01df44910dd5"
+
+[[files]]
+file = "config/jei/recipe-category-sort-order.ini"
+hash = "47570b39d6a0f22494056e63c00284eb087d0b72c325ed96ceb29cb784e7b3f1"
+
+[[files]]
+file = "config/justmobheads.json5"
+hash = "c5bcdc35b6c4fb7e5a96d552c10c13302c95956b3d6b038817cb97cd26f42801"
+
+[[files]]
+file = "config/justmobheads/headchances.txt"
+hash = "f18dd96491b39ed937e4d99e4d73f8cfbb0482311eea79cee4e4ed6cff24a294"
+
+[[files]]
+file = "config/justplayerheads.json5"
+hash = "f1f888cb5f0da0d8c6dd2aaa866e15f4ceef00528d3602e24a2b7fef7d4b4dd0"
+
+[[files]]
+file = "config/libgui.json5"
+hash = "6814fc05aa8d6664712b056cfd6cb51cb4bafeabe3f274b9cf5e19e27eff406d"
+
+[[files]]
+file = "config/litematica.json"
+hash = "93f1fb3c1aa16834dffd31fb0dcebf8bf6070790fa187e8f29e7ee1ab7a37295"
+
+[[files]]
+file = "config/lithium.properties"
+hash = "76765e8e5ff8e927d80beb0739aababcf36e7babfd94262f2afece256cc5cd2e"
+
+[[files]]
+file = "config/malilib.json"
+hash = "33d9f347c14aeaa05b845cb56a9704e979f0aa54c29165827f2980a688f344f6"
+
+[[files]]
+file = "config/minihud.json"
+hash = "6e9b97be7019cf42d31cd5902e0d253b89aed506dcf3300f6ff681cda95ab04b"
+
+[[files]]
+file = "config/modmenu.json"
+hash = "16d20c40cc6c114faff5493b561873fe160a65047720bc19fb3a3dd64aa67f3b"
+
+[[files]]
+file = "config/screencopy.toml"
+hash = "0e85f23c61d2bc805ac50b5c3065f221a335083ffaa5f00f98be91e574c71597"
+
+[[files]]
+file = "config/shulkerdropstwo.json5"
+hash = "c51a8d28d4e34f2fa558cb57aef6e8c023a501c11e2eadf7e4aafdfa8b1032d0"
+
+[[files]]
+file = "config/silencemobs.json5"
+hash = "3b496af2aee64a201b099304ff31e574201bfa142649c16c19fcef5760d48d00"
+
+[[files]]
+file = "config/stendhal/stendhal.properties"
+hash = "c50b7b9984d2ebd9e7dd0dab5318ae03adacb3b288bb715607ad29c7fa1d5c41"
+
+[[files]]
+file = "config/styled-chat.json"
+hash = "5e42cec6e3ed64996eced65c11b813286874a6ffed685a0b141171ced6a24335"
+
+[[files]]
+file = "config/tweakeroo.json"
+hash = "fe8c7eb26bb00cb36c6f82351eb8eae0c08612e0ff21645a6ca3b053e4ed0be4"
+
+[[files]]
+file = "config/voicechat/voicechat-server.properties"
+hash = "77b890704109f182a688a09dc2b68db431d2d90304f97719410fbf72bc6f4f4f"
+
+[[files]]
+file = "config/worldedit/worldedit.properties"
+hash = "56d8a5371b74063336acdf7b8041ef999db085435ca3a6098fcbcb8b32cbcd86"
+
+[[files]]
+file = "config/xaero/lib/client.cfg"
+hash = "43ed9dbfa5b4d6f0f3d2e8c2ced17ad298164b22c68ff11d415257a39b074336"
+
+[[files]]
+file = "config/xaero/lib/common.cfg"
+hash = "98f698d96a6d21d830a455b4ad045b70516fa63c298021742d8499e7f0366cd2"
+
+[[files]]
+file = "config/xaero/lib/profiles/default.cfg"
+hash = "34ae854b17d896d7cb853bdc28c27231a3947e91cb9f0991f372846ee3c2a907"
+
+[[files]]
+file = "config/xaero/lib/server_profiles/default.cfg"
+hash = "d438aea41ca41e93697e059f523686935c0add482f6abe96b532bbf10c6ed80a"
+
+[[files]]
+file = "config/xaero/minimap/client.cfg"
+hash = "c0915eff5d1a7905cd1038d646eb9086fd1a29e2f637d53535e4da161de17b9f"
+
+[[files]]
+file = "config/xaero/minimap/common.cfg"
+hash = "2b49df024c03a369c62a303c72755e7fedeb4f4653ff53a12fd37bd83ccd4ed0"
+
+[[files]]
+file = "config/xaero/minimap/default_radar_categories_client.json"
+hash = "23f4409a938ae99588c45718eee5c77e5cb312d4c444876dc1e5fd5be7042a35"
+
+[[files]]
+file = "config/xaero/minimap/default_radar_categories_server.json"
+hash = "a4c652cafa7dea324e5f5cf3b1df46a84e54b6d4f877195857bce55a559c1cfd"
+
+[[files]]
+file = "config/xaero/minimap/profiles/default.cfg"
+hash = "18980129740439caf1ec0a799abe050e9adf3711fa97afe51b16ab778f775086"
+
+[[files]]
+file = "config/xaero/minimap/profiles/info_display_config/default.cfg.txt"
+hash = "8eb778712d3b0bbad918ed00fb0869563dac782e9ee96793abfabed510184144"
+
+[[files]]
+file = "config/xaero/minimap/server_profiles/default.cfg"
+hash = "d438aea41ca41e93697e059f523686935c0add482f6abe96b532bbf10c6ed80a"
+
+[[files]]
+file = "config/xaero/world-map/client.cfg"
+hash = "d0f079a8df083f6f60a0e0c1316a25fc841755a91bdcb2f86c66ead8e7d4d13d"
+
+[[files]]
+file = "config/xaero/world-map/common.cfg"
+hash = "0c229eb0daf85bd09af51f21eeeb99497a3bd50a825d5ab1ca695fb21bf6cf9d"
+
+[[files]]
+file = "config/xaero/world-map/profiles/default.cfg"
+hash = "5422abf9c83fedef6509144293fad20f588d4bb6ce0cf1af78cbcd2bcd0d2ccf"
+
+[[files]]
+file = "config/xaero/world-map/server_profiles/default.cfg"
+hash = "d438aea41ca41e93697e059f523686935c0add482f6abe96b532bbf10c6ed80a"
+
+[[files]]
+file = "mods/amecs.pw.toml"
+hash = "298a04fd1b35711ef80dc9455b089fd54ebd3dc3903ff42b7e5924aff628e98a"
+metafile = true
+
+[[files]]
+file = "mods/appleskin.pw.toml"
+hash = "1fc1e482945dff68e6aab34b22d61d054a6177869408ed4af3fef6117a33faab"
+metafile = true
+
+[[files]]
+file = "mods/architectury-api.pw.toml"
+hash = "1502d3ac2c2ce4d3dc4c2db6ca6e95fb2a5d4a279e6e1413f6c427be222887a0"
+metafile = true
+
+[[files]]
+file = "mods/armor-poser.pw.toml"
+hash = "d2416c9882caa02158d22a25ab42c95d096a1d00e796e34a46a0c4b6c5267c88"
+metafile = true
+
+[[files]]
+file = "mods/audioplayer.pw.toml"
+hash = "d9b10fe3ffd937ca0556f7b080647ae99ed25bae5ac5d2c6a93e856b251ca07c"
+metafile = true
+
+[[files]]
+file = "mods/axes-are-weapons.pw.toml"
+hash = "fca44d553b60414407ff694e42709c854710b846badd7e4bbfd28b68b74a74de"
+metafile = true
+
+[[files]]
+file = "mods/axiom.pw.toml"
+hash = "25411d881f4616e97c1c1459a2e3ae8ce75a4ba0446ed5121bb8a1997e8f5058"
+metafile = true
+
+[[files]]
+file = "mods/bookshelf-inspector.pw.toml"
+hash = "721a07ca3757c2dd328e1894f015a94d7a20f0da741c47600effb0e55c5fc7b8"
+metafile = true
+
+[[files]]
+file = "mods/cloth-config.pw.toml"
+hash = "717d8ac591dba59be4767a179e1359747561e54ccfcac42161fd6bf54339a78b"
+metafile = true
+
+[[files]]
+file = "mods/collective.pw.toml"
+hash = "3d24d58b2caf4fd73d76b2d734a1d06490994d5d38177376e6f5d8d9f8fb87e0"
+metafile = true
+
+[[files]]
+file = "mods/coord-finder.pw.toml"
+hash = "4d1cd780237c40afa96e338e0c19039726516781f190403ea76ef662f5788cfc"
+metafile = true
+
+[[files]]
+file = "mods/entitytexturefeatures.pw.toml"
+hash = "ecf68d6785b64c504edd2ba855f96b00c931d4725f31c959e93f92a51a59cb8f"
+metafile = true
+
+[[files]]
+file = "mods/fabric-api.pw.toml"
+hash = "0345fbfa8542b5ec84535fe2aff0f5cc4e801ecc337f926d4e2310b53f458569"
+metafile = true
+
+[[files]]
+file = "mods/fabric-language-kotlin.pw.toml"
+hash = "7a7f5673b6e33eebaed00c0c453fc41d11c7474eb320c3ce8736d415fcfe2682"
+metafile = true
+
+[[files]]
+file = "mods/fallingtree.pw.toml"
+hash = "cb914cbb6379455b0d20056ed0bb0ae8d315a66966383d0ba0c67d78c187d156"
+metafile = true
+
+[[files]]
+file = "mods/ferrite-core.pw.toml"
+hash = "19b5a6351ca8f850ddb22e07cdae9d83138aaff17a75b21c88b6e0a2b4fb530a"
+metafile = true
+
+[[files]]
+file = "mods/horse-statistics.pw.toml"
+hash = "b36f1f38975d1708ff1c7a72e6863b6f529311bcf7983faf5e216e6a048d2a81"
+metafile = true
+
+[[files]]
+file = "mods/immediatelyfast.pw.toml"
+hash = "e37a2a4436ad64d9d70b7d8dd9dc6c0d0e023247c1408a46404321405d435b41"
+metafile = true
+
+[[files]]
+file = "mods/jei.pw.toml"
+hash = "3eef987c44abea6195ec4bae4c8d7f234306c7f02f3487cb7637bd2db6e28d35"
+metafile = true
+
+[[files]]
+file = "mods/just-mob-heads.pw.toml"
+hash = "85af1ab16f82680ecaaf44f1a9fd725023ac756583b5dc1fbfb4b57722f0ae4d"
+metafile = true
+
+[[files]]
+file = "mods/just-player-heads.pw.toml"
+hash = "c0a10ebcfadb6a6605af1705e3746fd1a1051aade1b2aeef6275f0758ebe65cb"
+metafile = true
+
+[[files]]
+file = "mods/libipn.pw.toml"
+hash = "6a9a36e5b6df0459227d4c67760fab573d363f43e252a071c139cc576ff15588"
+metafile = true
+
+[[files]]
+file = "mods/litematica.pw.toml"
+hash = "82bdb5ada40750ed429f48b7df9431f968afa2ae9b2b732558e2c632ddefa6af"
+metafile = true
+
+[[files]]
+file = "mods/lithium.pw.toml"
+hash = "84957275e9dc6f07f4244ce3303536e3d73b0e72eb1696ccd024168a52c29c98"
+metafile = true
+
+[[files]]
+file = "mods/malilib.pw.toml"
+hash = "9946fd3c2a85099bb68cff8a2168601c3f1c7879fc42d018171c7cf5f25693d2"
+metafile = true
+
+[[files]]
+file = "mods/minihud.pw.toml"
+hash = "9901b4a332af2554d61e1a0547a8d6dce114232ecc48f5b4512ab867c1d680ef"
+metafile = true
+
+[[files]]
+file = "mods/modmenu.pw.toml"
+hash = "1023896f91113c9882d04eca2b072d209bfff4d24e0a306fde992527b56d45ed"
+metafile = true
+
+[[files]]
+file = "mods/no-chat-reports.pw.toml"
+hash = "70d7b2bca719eca2b3a1447228b868abdc633c38121652d49f4e34380c44339d"
+metafile = true
+
+[[files]]
+file = "mods/placeholder-api.pw.toml"
+hash = "ab6def9d98d3f5bf12f78845bdb770a19d5ca590c571e60184e537ffa14dcbee"
+metafile = true
+
+[[files]]
+file = "mods/screencopy.pw.toml"
+hash = "f316a724cd4c3536d386a40387942f133954f3c57a871493fb8755e78e4546f4"
+metafile = true
+
+[[files]]
+file = "mods/shulker-drops-two.pw.toml"
+hash = "26f380f6d4e0b7a37ac9c6dd9f9144178c2d91a662e3f750b0f6d6b93ab62f28"
+metafile = true
+
+[[files]]
+file = "mods/shulkerboxtooltip.pw.toml"
+hash = "f3f30366b2d911291021d2003108e0bf26da22f3221a669800db6484e1e28c7f"
+metafile = true
+
+[[files]]
+file = "mods/silence-mobs.pw.toml"
+hash = "074f6caf726c22c772fddcfcd91cd936ee93ae29e68fe7d3dd20220a35d12193"
+metafile = true
+
+[[files]]
+file = "mods/simple-voice-chat.pw.toml"
+hash = "d9ed73f4def5a03dac47ffce7f4c506282d64d5d94a15c469b98cb948f2ddd50"
+metafile = true
+
+[[files]]
+file = "mods/statuseffecttimer.pw.toml"
+hash = "0c8b2f238e0aa73f82fcdc09e0f78a298689d40e84cae244ea39e8a5d860b585"
+metafile = true
+
+[[files]]
+file = "mods/stendhal.pw.toml"
+hash = "7c8590d2228acc18559c18767b83781cea7318cf36edbf0ee01aeca4a814c4b1"
+metafile = true
+
+[[files]]
+file = "mods/styled-chat.pw.toml"
+hash = "4ef01739538433cd067156507003d23f8bfc9e733bc1a8397a8b9284617a21dc"
+metafile = true
+
+[[files]]
+file = "mods/tweakeroo.pw.toml"
+hash = "22cff4ede67e4810127dfb952db897559bf64b000697dc78bf6b2b25eaedfb5c"
+metafile = true
+
+[[files]]
+file = "mods/view-distance-fix.pw.toml"
+hash = "7e9b7d78f5effa3924065ae845b68c57e77f35205c4538123ed5461c7f290844"
+metafile = true
+
+[[files]]
+file = "mods/worldedit.pw.toml"
+hash = "b6637110509503de5c77ce30430a21a4d2570d33c8589087f9384eb04995ec3e"
+metafile = true
+
+[[files]]
+file = "mods/xaeros-minimap.pw.toml"
+hash = "532a144f1c2f2f99b4545dafea292c77a313ffe3de923c00cd1cc9bd0cad6bf9"
+metafile = true
+
+[[files]]
+file = "mods/xaeros-world-map.pw.toml"
+hash = "d6bd9ece14ba8a3b749d8f1e841b1fec04eae9a0655e827d0d572af2ec48e302"
+metafile = true
+
+[[files]]
+file = "resourcepacks/fresh-animations.pw.toml"
+hash = "64f90fd9619a092a8a5493d6ad9605bc5fec13f50f02feef1dcf47c9496a80bd"
+metafile = true
+
+[[files]]
+file = "resourcepacks/redstone-tweaks.pw.toml"
+hash = "31b53c71c2bf08da156167befe54b5717e71ee871e10ef78a70967a0bdc8b56b"
+metafile = true

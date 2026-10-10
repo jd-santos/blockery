@@ -1,0 +1,12 @@
+name = "Blockery"
+version = "unreleased"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "e375b489724f6b737273987942e4cb8b8201f0d588543e7f1ad0434d68024470"
+
+[versions]
+fabric = "0.19.5"
+minecraft = "1.21.10"

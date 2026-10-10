@@ -1,0 +1,13 @@
+name = "Silence Mobs"
+filename = "silencemobs-1.21.10-3.7.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/rpmGvDKs/versions/S4QxZxFg/silencemobs-1.21.10-3.7.jar"
+hash-format = "sha512"
+hash = "9fe061123b6aabb9bc2815af0b0bfe97d39a397ea55fc250e0ed7fcd83a94ee876ac8832d98616383905c7c67cdd4f2edf6779b3432eb9809bad7438782d579e"
+
+[update]
+[update.modrinth]
+mod-id = "rpmGvDKs"
+version = "S4QxZxFg"

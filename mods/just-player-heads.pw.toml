@@ -1,0 +1,13 @@
+name = "Just Player Heads"
+filename = "justplayerheads-1.21.10-4.3.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/YdVBZMNR/versions/XSCScrV7/justplayerheads-1.21.10-4.3.jar"
+hash-format = "sha512"
+hash = "065b574ac5d520402c7845bf216bca3f1f62af676057771e487ec1bb6e292a9c77e768292b8f311db3554fed80c70626c79a1e9aba3692569b75fb735719f77e"
+
+[update]
+[update.modrinth]
+mod-id = "YdVBZMNR"
+version = "XSCScrV7"
