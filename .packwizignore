@@ -5,6 +5,8 @@
 /.gitignore
 /.packwizignore
 /AGENTS.md
+/CHANGELOG.md
+/CONTEXT.md
 /README.md
 /docs/
 /deploy/
@@ -17,6 +19,8 @@
 *.pem
 *.key
 /secrets/
+/config/NoChatReports/NCR-Encryption.json
+/config/axiom/axiom.json
 /server.properties
 !/server.properties.example
 
@@ -40,5 +44,6 @@
 /Thumbs.db
 /.cache/
 /.packwiz-cache/
+/local/
 *.mrpack
 *.zip

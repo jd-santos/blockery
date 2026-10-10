@@ -5,6 +5,8 @@
 *.pem
 *.key
 secrets/
+config/NoChatReports/NCR-Encryption.json
+config/axiom/axiom.json
 server.properties
 !server.properties.example
 
@@ -28,5 +30,6 @@ eula.txt
 Thumbs.db
 .cache/
 .packwiz-cache/
+/local/
 *.mrpack
 *.zip
