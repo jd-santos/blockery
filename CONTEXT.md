@@ -1,19 +1,34 @@
 # Blockery
 
-Blockery defines one shared Minecraft pack that can run on more than one server. Each server keeps its own mutable world and operational state.
+Blockery is the umbrella project and shared source definition. Explicit build recipes
+produce distinct client and server distributions. Each server keeps its own mutable
+world and operational state.
 
 ## Language
 
-**Pack**:
-The shared set of Minecraft and loader versions, mods, and managed configuration required by compatible servers and clients.
+**Pack source**:
+The canonical Minecraft/loader versions, reusable mod metadata, and reviewed configuration
+from which distributions are selected. Root files are not a finished server release.
 _Avoid_: Server, world
 
+**Build profile**:
+A repository recipe selecting source metadata and reviewed files for one output. This is
+our Python build layer, not a native Packwiz feature or a launcher's installed instance.
+_Avoid_: Release version
+
+**Distribution**:
+A named installable output with a specific audience. `blockery` is the default minimal
+player client; `blockery-pro` is the expanded client. `blockery-server-survival` and
+`blockery-server-creative` are server outputs. Membership and configuration approvals
+remain unfinished, so current recipe builds are drafts.
+_Avoid_: World, deployment target
+
 **Deployment target**:
-An independently operated server instance that receives the pack and owns its runtime state. The current targets are the main server and the creative sandbox.
+An independently operated server instance that receives a server distribution and owns its runtime state. The current targets are the main server and the creative sandbox.
 _Avoid_: World, pack
 
 **Target variation**:
-An intentional setting or file that differs between deployment targets while the underlying pack remains shared.
+An intentional setting or file that differs between deployment targets while their source definition remains shared.
 _Avoid_: Separate pack, fork
 
 **Runtime state**:
@@ -21,5 +36,5 @@ Mutable data owned by a deployment target, including worlds, player data, logs, 
 _Avoid_: Configuration
 
 **Client distribution**:
-The client-compatible form of the pack provided to players, primarily through Modrinth.
+A player-facing pack provided separately from server deployment outputs, primarily through Modrinth.
 _Avoid_: Server pack

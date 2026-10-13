@@ -30,6 +30,9 @@ eula.txt
 Thumbs.db
 .cache/
 .packwiz-cache/
+.ruff_cache/
 /local/
+**/__pycache__/
+.venv/
 *.mrpack
 *.zip
