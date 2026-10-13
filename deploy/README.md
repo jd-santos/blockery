@@ -3,8 +3,9 @@
 Blockery has shared Packwiz sources and multiple Bloom deployment targets. Server build
 recipes select metadata/configs from those sources; player clients are separate outputs.
 `blockery-server-survival` selects the shared server mod list, and
-`blockery-server-creative` inherits that selection. Both currently have pending config
-and runtime checks, so their exports are drafts, not deployment-ready packs.
+`blockery-server-creative` inherits that selection and the 11 reviewed shared gameplay
+config files. Target-specific config review and runtime checks remain pending, so their
+exports are drafts, not deployment-ready packs.
 
 The existing `main/` directory corresponds to survival. It has not been renamed.
 The creative directory remains `creative/`. These target directories are not complete

@@ -202,5 +202,62 @@ class BuildTests(unittest.TestCase):
             builder.build(self.root, "pro", "preview", draft=True)
 
 
+class RepositoryProfileTests(unittest.TestCase):
+    """Check the real recipes without exports, network calls, or server execution."""
+
+    root = Path(__file__).resolve().parents[1]
+    shared_server_configs = {
+        "config/armorposer.toml",
+        "config/axesareweapons.json5",
+        "config/bookshelfinspector-config.yml",
+        "config/collective.json5",
+        "config/fallingtree.json",
+        "config/justmobheads.json5",
+        "config/justmobheads/headchances.txt",
+        "config/justplayerheads.json5",
+        "config/NoChatReports/NCR-Common.json",
+        "config/shulkerdropstwo.json5",
+        "config/silencemobs.json5",
+    }
+
+    def test_server_configs_inherit_and_stage_exact_reviewed_sources(self):
+        for slug in ("blockery-server-survival", "blockery-server-creative"):
+            with self.subTest(profile=slug), tempfile.TemporaryDirectory() as temp:
+                profile = builder.plan(self.root, slug)
+                self.assertEqual(profile["side"], "server")
+                self.assertEqual(set(profile["files"]), self.shared_server_configs)
+                stage = Path(temp)
+                builder.stage_pack(self.root, stage, profile, "config-preview-draft")
+                actual = {
+                    str(p.relative_to(stage))
+                    for p in (stage / "config").rglob("*") if p.is_file()
+                }
+                self.assertEqual(actual, self.shared_server_configs)
+                for value in actual:
+                    self.assertEqual((stage / value).read_bytes(),
+                                     (self.root / value).read_bytes())
+                armor = tomllib.loads((stage / "config/armorposer.toml").read_text())
+                self.assertTrue(armor["general"]["restrictResizeToOP"])
+        self.assertEqual(builder.plan(self.root, "blockery-pro")["files"], [])
+
+    def test_permissions_dependency_is_selected_only_by_server_profiles(self):
+        path = "mods/fabric-permissions-api.pw.toml"
+        metadata = tomllib.loads((self.root / path).read_text())
+        self.assertEqual(metadata["side"], "server")
+        for slug in ("blockery-server-survival", "blockery-server-creative"):
+            with self.subTest(profile=slug):
+                self.assertIn(path, builder.plan(self.root, slug)["mods"])
+        for slug in ("blockery", "blockery-pro"):
+            with self.subTest(profile=slug):
+                self.assertNotIn(path, builder.plan(self.root, slug)["mods"])
+
+    def test_server_releases_remain_blocked(self):
+        for slug in ("blockery-server-survival", "blockery-server-creative"):
+            with self.subTest(profile=slug), patch.object(builder.subprocess, "run") as run:
+                with self.assertRaisesRegex(builder.BuildError, "Release blocked"):
+                    builder.build(self.root, slug, "1.0.0")
+                run.assert_not_called()
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -2,7 +2,7 @@
 enableConfigGui = true
 enableNameTags = true
 allowScrolling = true
-restrictResizeToOP = false
+restrictResizeToOP = true
 nameBasedFeatures = false
 resizeWhitelist = []
 [client]

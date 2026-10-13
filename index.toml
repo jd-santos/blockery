@@ -18,7 +18,7 @@ hash = "65edc28ca2bf6bd3e3684ae545fb74bcc0ec935a40d6ac60cb68c00c152e34fb"
 
 [[files]]
 file = "config/armorposer.toml"
-hash = "3d722c9b0301d7b8766ac9ee1aa5ca52ad3a46012185a1db2fe348aece6534d3"
+hash = "622a67c04560b1efa56c8a134ba23cfbac616222f46c291e2b1def3ad0ec3d82"
 
 [[files]]
 file = "config/audioplayer/audioplayer-server.properties"
@@ -302,6 +302,11 @@ metafile = true
 [[files]]
 file = "mods/fabric-language-kotlin.pw.toml"
 hash = "7a7f5673b6e33eebaed00c0c453fc41d11c7474eb320c3ce8736d415fcfe2682"
+metafile = true
+
+[[files]]
+file = "mods/fabric-permissions-api.pw.toml"
+hash = "07bf571d79da140f9b3994e765832ff2e115e32d7f91da17d1e2fdd4aa9aedfc"
 metafile = true
 
 [[files]]

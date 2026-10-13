@@ -12,8 +12,9 @@ This repository records shared Minecraft versions, mod metadata, resource packs,
 
 Client membership is not finalized. The `blockery` recipe has no selected mods yet;
 Pro preserves the existing full client selection as a draft. Both server recipes
-currently select the same 29 mod entries. No recipe includes configs until those files
-are reviewed and explicitly selected. All four recipes have pending release checks.
+currently select the same 30 mod entries and 11 reviewed shared gameplay config files.
+Client drafts still omit configs. Target-specific server settings are not bundled yet.
+All four recipes have pending release checks.
 
 ## Build a distribution
 

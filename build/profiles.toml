@@ -1,5 +1,5 @@
 # Explicit build recipes, not native Packwiz profiles.
-# No config has been approved for these exports yet. Drafts omit all configs.
+# Server drafts include reviewed shared gameplay configs. Client drafts omit configs.
 # The player base stays undecided; Pro preserves the current full client selection.
 
 [profiles.blockery]
@@ -79,6 +79,7 @@ mods = [
   "mods/coord-finder.pw.toml",
   "mods/fabric-api.pw.toml",
   "mods/fabric-language-kotlin.pw.toml",
+  "mods/fabric-permissions-api.pw.toml",
   "mods/fallingtree.pw.toml",
   "mods/ferrite-core.pw.toml",
   "mods/inhabitor.pw.toml",
@@ -95,8 +96,23 @@ mods = [
   "mods/view-distance-fix.pw.toml",
   "mods/worldedit.pw.toml",
 ]
-files = []
-pending = ["Approve server configs and verify dedicated-server compatibility."]
+files = [
+  "config/armorposer.toml",
+  "config/axesareweapons.json5",
+  "config/bookshelfinspector-config.yml",
+  "config/collective.json5",
+  "config/fallingtree.json",
+  "config/justmobheads.json5",
+  "config/justmobheads/headchances.txt",
+  "config/justplayerheads.json5",
+  "config/NoChatReports/NCR-Common.json",
+  "config/shulkerdropstwo.json5",
+  "config/silencemobs.json5",
+]
+pending = [
+  "Verify dedicated-server compatibility and shared gameplay config behavior.",
+  "Review target-specific networking, storage, permissions, and chat integration settings.",
+]
 
 [profiles.blockery-server-creative]
 name = "Blockery Server Creative"

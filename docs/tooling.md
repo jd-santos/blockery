@@ -67,14 +67,23 @@ uv run --script scripts/build_pack.py plan blockery-pro
 ```
 
 The minimal client selection is still empty. Pro retains the current client loadout;
-server recipes retain the current server mod selection. All recipes are drafts and omit
-configs until reviewed. MiniHUD and other membership decisions can wait until client
-release preparation. Server config decisions must be settled before real deployment.
+server recipes retain the current server mod selection plus 11 reviewed shared gameplay
+config files. Creative inherits both selections from survival. The explicit server-only
+Fabric Permissions API 0.5.0 pin satisfies WorldEdit's integration version check; it does
+not install a permission manager or grant players permissions. Armor stand resizing is
+operator-only. Client drafts still omit configs. The comment-only Lithium config, empty
+No Chat Reports server preferences, and FerriteCore defaults are not bundled. Voice/audio
+networking and upload paths, WorldEdit storage/permissions, and chat integration settings
+remain target-specific review work, not implicit overrides. See the
+[server audit](../todo/work/001-bloom-migration/server-audit.md) for selection evidence.
+All recipes remain drafts. MiniHUD and other membership decisions can wait until client
+release preparation. Dedicated-server behavior and target settings must be verified before
+real deployment.
 
 ```sh
 uv run --script scripts/build_pack.py build blockery-pro --version infrastructure-preview --draft
-uv run --script scripts/build_pack.py build blockery-server-survival --version infrastructure-preview --draft
-uv run --script scripts/build_pack.py build blockery-server-creative --version infrastructure-preview --draft
+uv run --script scripts/build_pack.py build blockery-server-survival --version permissions-api-preview --draft
+uv run --script scripts/build_pack.py build blockery-server-creative --version permissions-api-preview --draft
 ```
 
 Each command stages selected sources in a temporary pack, refreshes its own index, and

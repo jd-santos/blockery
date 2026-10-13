@@ -52,9 +52,10 @@ is introduced.
 
 ## Repository evidence
 
-After the approved additions, the pack has 45 mod entries: 26 marked `both`, 16 marked
-`client`, and 3 marked `server`. Server selection includes 29 entries. This is metadata
-validation, not a verified dedicated-server boot.
+The current pack has 46 mod entries: 26 marked `both`, 16 marked `client`, and 4 marked
+`server`. Both server recipes select 30 entries and 11 reviewed gameplay config files.
+Local fresh-world startup and console shutdown passed for both exact server drafts;
+player-facing gameplay/permission behavior and deployment validation remain open.
 
 The selected entries are AppleSkin, Architectury API, Armor Poser, AudioPlayer,
 Axes Are Weapons, Axiom, Bookshelf Inspector, Cloth Config API, Collective,
@@ -62,7 +63,9 @@ Coord Finder, Fabric API, Fabric Language Kotlin, FallingTree, FerriteCore,
 Just Enough Items, Just Mob Heads, Just Player Heads, Lithium, No Chat Reports,
 Text Placeholder API, Shulker Drops Two, Silence Mobs, Simple Voice Chat,
 Styled Chat, View Distance Fix, and WorldEdit. The three server-only additions are
-Adventure Platform, Better Fabric Console, and Inhabitor.
+Adventure Platform, Better Fabric Console, and Inhabitor. An explicit Fabric Permissions
+API 0.5.0 server-only pin was subsequently added to satisfy WorldEdit's undocumented
+integration requirement; it is not a permission manager.
 
 The index also contains client-oriented configs. Mod side filtering does not by itself
 prove configs/resource packs are filtered appropriately. Inspect the exported server
@@ -96,8 +99,8 @@ server-selected repository entries found:
 [Better Fabric Console](https://modrinth.com/mod/better-fabric-console) documents
 server-side console improvements and an Adventure Platform dependency. Evaluate both
 as a pair if retaining the console mod, including compatibility with Bloom's web console
-and the proposed launcher. Dependencies of the exact AudioPlayer/Styled Chat releases
-remain unverified; do not assume Adventure is required by them.
+and the proposed launcher. The later exact-release audit found that AudioPlayer/Styled
+Chat JAR metadata does not require Adventure Platform; see the [server audit](server-audit.md).
 
 [Inhabitor](https://modrinth.com/mod/inhabitor) provides chunk inhabited-time tools
 for world pruning and a related tracking fix. The approved additions are Better Fabric
@@ -132,15 +135,17 @@ before testing updater preservation. Do not rely only on protection of `world/`.
 [Patbox's mrpack4server](https://github.com/Patbox/mrpack4server) documents operation
 as a custom server JAR, fetching a Modrinth pack or remotely hosted `.mrpack`, and
 installing/starting Fabric. This fits the visible Bloom `Server Jar File` setting
-without requiring an arbitrary startup script. It is a candidate, not a tested or
-adopted dependency. Choose and record a specific launcher release before installation.
+without requiring an arbitrary startup script. The pinned 0.5.1 candidate has passed
+isolated local installation/start/stop checks, not Bloom or updater validation. It is
+not adopted for deployment.
 
 The upstream GitHub API reports [0.5.1](https://github.com/Patbox/mrpack4server/releases/tag/0.5.1)
 as the latest non-prerelease, published 2026-08-31. This direct check supersedes search
 excerpts showing 0.5.0 as latest. Release notes include a fix for `server-overrides`.
 The project has public source under MIT and is maintained by [Patbox](https://github.com/Patbox),
 a Fabric mod developer. This establishes a credible candidate, not a security audit or
-proof of correct Bloom operation. Evaluate the pinned 0.5.1 code before running it.
+proof of correct Bloom operation. The pinned 0.5.1 source was inspected before local
+execution; unresolved helper-pinning and lock/removal behavior are in the server audit.
 
 Pack hosting means a downloadable release artifact, not another rented game server.
 Modrinth or static HTTPS storage could provide it; neither has been chosen or published.
@@ -186,7 +191,17 @@ separately because file backups do not establish preservation of panel settings.
 - [x] Inventory repository mod side declarations and identify a fixed-JAR hosted installer candidate.
 - [x] Obtain filename-only mod inventories from survival and creative and classify missing,
   extra, version-different, and target-specific entries. Do not collect secrets or full server dumps.
+- [x] Record the user's successful Pro draft Prism smoke test.
 - [ ] Verify side declarations, server dependencies, exported server files, and compatibility.
+  - [x] Check all 29 exact Modrinth records, download hashes, and server-visible Fabric dependency IDs, including nested JARs.
+  - [x] Review non-sensitive gameplay config candidates and record findings in the [server audit](server-audit.md).
+  - [x] Record the user's review of the config candidates and apply operator-only armor stand resizing to the shared source.
+  - [x] Implement the shared server config allowlist and verify both exact draft exports.
+  - [ ] Assess remaining target-specific networking, storage, permission, and chat integration needs.
+  - [x] Install the exact survival draft locally and confirm Minecraft/Loader pins at the EULA gate, without accepting the EULA or creating a world.
+  - [x] Resolve WorldEdit's undocumented Permissions API `>=0.5.0` integration requirement with an explicit 0.5.0 server pin and repeat initialization.
+  - [x] Obtain Minecraft EULA acceptance for the disposable local test and verify fresh-world startup and graceful shutdown for both exact server drafts.
+  - [ ] Verify player-facing gameplay and operator/non-operator permissions with a disposable local client session.
 - [ ] Establish client/server output conventions and client profile boundaries before
   release cleanup. Keep the player-facing Blockery identity separate from server
   deployment releases; settle default/full/minimal client scope and visibility.
@@ -199,6 +214,8 @@ separately because file backups do not establish preservation of panel settings.
   Generate the separate Bloom launcher configuration only after the release IDs/URL are known.
 - [ ] Verify a clean remote install on staging, including actual Minecraft/loader versions.
 - [ ] Verify repeat starts remain pinned and a deliberate release update works without recurring mod uploads.
+  - [x] Repeat local starts of both exact corrected server drafts; verify unchanged pins, no reinstall, and clean console shutdown.
+  - [ ] Verify hosted/remote pinned starts and deliberate release updates.
 - [ ] Test mod addition/removal, config overwrite behavior, runtime-state preservation, download
   failure behavior, effective heap settings, console input, and graceful panel Stop/Restart.
 - [ ] Verify backup restoration and record rollback procedure and required panel settings.
@@ -230,7 +247,91 @@ The commit audit found Ruff cache files in the root Packwiz index. Added explici
 and Packwiz Ruff-cache exclusions, refreshed the index, and rechecked that caches and
 builder/workbench files are not indexed. The draft recipe exports were already isolated
 and unaffected. Fixture tests and diff checks passed again during commit preparation.
-Manual Prism smoke-test instructions are in `docs/tooling.md`; no user test is claimed.
+Manual Prism smoke-test instructions are in `docs/tooling.md`. The user subsequently
+confirmed the Pro draft test looks good. This confirms the reported client smoke test,
+not final client membership, bundled configs, or dedicated-server compatibility.
+
+The [server audit](server-audit.md) checked all 29 exact releases and hash-verified JARs,
+including nested Fabric metadata. No required server-visible dependency ID is missing.
+Modrinth's Bookshelf Inspector listing requires Mod Menu, but the JAR does not declare
+it as a required dependency; do not add a client-only mod to the server on that basis.
+Fourteen non-sensitive gameplay/config candidates were reviewed. The user reviewed them
+and requested `restrictResizeToOP = true` in `config/armorposer.toml`. The shared source
+now has that setting; no other config values changed. Routine selection can proceed from
+this review without per-setting questions. Survival now selects 11 shared gameplay files;
+creative inherits them. Client configs remain unselected. No-op Lithium, empty No Chat
+Reports server preferences, and FerriteCore defaults remain unbundled. Target-specific
+networking, upload/storage paths, permissions, and chat integration still need assessment.
+The initial audit ran no downloaded code. The later local preflight is recorded below;
+no live server was changed.
+
+The two new `gameplay-config-preview-draft` server exports under `local/dist/` contain
+29 exact pinned downloads and 11 byte-identical selected config overrides, with no extra
+files. All original side flags are preserved: 26 both-side mods and three server-only mods.
+Minecraft 1.21.10, Fabric 0.19.5, and operator-only armor stand resizing were verified in
+both archives. Source hashes stayed unchanged during archive validation and creative
+export. An initial archive-check assertion incorrectly expected every mod to be server-only;
+corrected the check to compare against each source declaration, without changing metadata.
+The survival artifact from that export passed the corrected checks; it was not overwritten.
+
+All 14 unittest cases pass, including new real-recipe config inheritance/staging and
+release-gate checks. Active checks of the changed Python/TOML files reported no findings.
+The JSON language server reports 26 comment errors in existing JSON5 configs; these were
+marked false positives because JSON5 allows comments. No mod config comments were removed.
+Local Java is Azul Java 21.0.4. Fresh correctness/design reviews found no blockers in
+the recipe/config slice. Reviewers checked sources/docs and archive member paths; they
+did not independently run tests or decompress archive payloads. Parent-provided checks
+established pins, byte equality, tests, diagnostics, and Git status.
+
+An isolated ignored survival sandbox was prepared and mrpack4server 0.5.1's published
+SHA-256 verified before execution. Its source was inspected. Installation and Fabric
+initialization reported Minecraft 1.21.10 / Loader 0.19.5, installed all 29 exact mod pins,
+and left all 11 shared config files byte-identical to the reviewed sources. EULA remained
+false and no world directory was created. The process did not exit after the EULA gate;
+it was terminated at the 180-second bound, not stopped gracefully. No listeners remained
+on the intended loopback test ports. The [server audit](server-audit.md#pinned-installer-and-local-preflight)
+records sandbox settings, launcher caveats, and the WorldEdit warning: its optional
+Permissions API integration requires `>=0.5.0`, but Loader selected 0.4.2-patbox.1 and
+WorldEdit fell back to Minecraft permissions. The explicit API pin recorded below
+resolves that fallback; real player permissions still need testing.
+That initial preflight made no new mod/version pin or EULA acceptance. The later corrected
+local tests are recorded below; no updater adoption, remote action, or world migration
+was performed.
+
+The user then accepted the Minecraft EULA for disposable local tests only. Added
+server-only Fabric Permissions API 0.5.0, Modrinth project `lzVo0Dll` / version `6lShH56u`,
+a release declaring Minecraft 1.21.9/1.21.10 and Fabric support. Its download SHA-512 and
+Fabric metadata were verified. Both new `permissions-api-preview-draft` exports contain
+30 exact pinned downloads plus the same 11 byte-identical reviewed configs; four downloads
+are server-only. Client recipe selections remain unchanged and all release gates remain.
+
+Both exact corrected outputs installed into separate ignored local sandboxes, reached
+`Done`, created separate disposable normal-terrain worlds, answered `list` and `worldedit
+version`, and accepted console `stop`. Each saved players/worlds and exited 0 without
+forced termination. Loader selected Permissions API 0.5.0 and the WorldEdit fallback
+warning disappeared. Installed top-level JAR hashes and all selected config bytes matched
+the source. Live socket checks showed only loopback Minecraft TCP 25575 and Voice Chat
+UDP 24465. No players joined and no gameplay/permission enforcement test is claimed.
+The initial corrected survival run used incomplete flat-world generator settings and
+logged a generator error. The local-only harness was changed to normal terrain and both
+outputs rerun in fresh directories, with no error lines. Armor Poser's missing-refmap
+warning and the non-TTY terminal warning remained. Neither prevented start/stop; the
+refmap warning still needs consideration during actual armor-stand behavior testing.
+
+Both normal-terrain sandboxes were then restarted without rewriting settings or changing
+artifacts. Each retained its exact pack/mod pins, selected API 0.5.0, reported no installer
+rerun, answered console commands, saved, and exited 0 without forced termination. Loopback
+listeners were verified again, all selected config bytes stayed unchanged, and no error
+lines appeared. This is local cached restart evidence, not a hosted update or panel test.
+
+All 15 unit tests passed after the new server-only dependency selection regression check;
+active checks of the changed Python/TOML files and `git diff --check` passed. Canonical
+pack/index and selected-source hashes and runtime/repository exclusions were rechecked.
+The single fresh follow-up correctness/design review round found no blockers in the
+Permissions API fix or local startup claims. Reviewers checked public metadata, recipes,
+tests, docs, and permitted JSON runtime summaries; they did not independently run the
+server/tests or inspect private logs. Exact archive hashes, runtime summaries, and remaining
+validation are in the [server audit](server-audit.md).
 
 Minimal/Pro membership can wait until the first client release; it does not block
 server build infrastructure. Config audits and dependencies still block real server
@@ -250,7 +351,9 @@ Minecraft 1.21.10 / Fabric 0.19.5, and version ID `unreleased`. All 47 download 
 `cdn.modrinth.com` and include SHA-1/SHA-512 hashes. No mod JAR or resource-pack ZIP is
 bundled in overrides; Axiom is also a Modrinth download. The archive has 56 files under
 shared `overrides/`, with no client/server override folders. This is not a complete review
-of config contents or permissions. No launcher JAR or Bloom configuration has been prepared.
+of config contents or permissions. That legacy export was not paired with a launcher
+configuration. The later ignored local sandbox uses the pinned launcher and `local.mrpack`;
+no Bloom launcher configuration has been prepared.
 
 [Packwiz's publishing guide](https://packwiz.infra.link/tutorials/hosting/modrinth/)
 requires exporting `.mrpack`, not a separate repository-level Modrinth config file.
@@ -258,8 +361,9 @@ requires exporting `.mrpack`, not a separate repository-level Modrinth config fi
 explains that exact files hosted on Modrinth are eligible for use in Modrinth modpacks;
 review other bundled content separately and meet any applicable conditions.
 
-No dedicated-server boot, remote installation, updater release, mod removal, rollback,
-or world migration has been tested. The older root export has not been regenerated.
+Fresh local dedicated-server world startup and console shutdown passed. Remote installation,
+updater releases/removals, rollback, world migration, and real player gameplay/permissions
+have not been tested. The older root export has not been regenerated.
 
 Both target mod lists and the retention decision are now available. Remaining checks
 include existing mod compatibility/dependencies and choosing hosted distribution before
