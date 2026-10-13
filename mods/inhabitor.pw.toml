@@ -1,0 +1,13 @@
+name = "Inhabitor"
+filename = "inhabitor-fabric-1.21.10-1.0.7.jar"
+side = "server"
+
+[download]
+url = "https://cdn.modrinth.com/data/NSBscIsQ/versions/4xFsGrTc/inhabitor-fabric-1.21.10-1.0.7.jar"
+hash-format = "sha512"
+hash = "180d22d5d63529098c6e8d199364b32374c567c91bbc4416855810a9eec4a73003151c806a72eefc3ba565d7aa3aaa7f067cf99d6a7928a9bb9717c1e16ad964"
+
+[update]
+[update.modrinth]
+mod-id = "NSBscIsQ"
+version = "4xFsGrTc"

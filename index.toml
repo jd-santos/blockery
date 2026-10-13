@@ -225,6 +225,11 @@ file = "config/xaero/world-map/server_profiles/default.cfg"
 hash = "d438aea41ca41e93697e059f523686935c0add482f6abe96b532bbf10c6ed80a"
 
 [[files]]
+file = "mods/adventure-platform-mod.pw.toml"
+hash = "642fe1fc518573350dba8f2b7b1e803256a028b201c74b688a7dc12a8dae140a"
+metafile = true
+
+[[files]]
 file = "mods/amecs.pw.toml"
 hash = "298a04fd1b35711ef80dc9455b089fd54ebd3dc3903ff42b7e5924aff628e98a"
 metafile = true
@@ -257,6 +262,11 @@ metafile = true
 [[files]]
 file = "mods/axiom.pw.toml"
 hash = "25411d881f4616e97c1c1459a2e3ae8ce75a4ba0446ed5121bb8a1997e8f5058"
+metafile = true
+
+[[files]]
+file = "mods/better-fabric-console.pw.toml"
+hash = "2ce508a2e7433dc80605342a6e3b086af3912d6d18274543c688d41decee9a67"
 metafile = true
 
 [[files]]
@@ -312,6 +322,11 @@ metafile = true
 [[files]]
 file = "mods/immediatelyfast.pw.toml"
 hash = "e37a2a4436ad64d9d70b7d8dd9dc6c0d0e023247c1408a46404321405d435b41"
+metafile = true
+
+[[files]]
+file = "mods/inhabitor.pw.toml"
+hash = "95e6ae8c21b34358eef909e4e5571bc81fdae6b60a99cc526ce570b2ea2f3c23"
 metafile = true
 
 [[files]]
