@@ -6,16 +6,29 @@ This repository records shared Minecraft versions, mod metadata, resource packs,
 
 ## Distribution names
 
-- **Blockery** is the umbrella project and the default, minimal player client (`blockery`).
-- **Blockery Pro** is the separately available expanded client (`blockery-pro`).
+- **Blockery** is the umbrella project and shared source.
+- **Blockery Client** is the default, lightweight player client (`blockery-client`).
+- **Blockery Extras Client** is the separately available expanded client (`blockery-extras-client`).
 - **Blockery Server Survival** and **Blockery Server Creative** are server outputs, not player client packs.
 
-Client membership is not finalized. The `blockery` recipe has no selected mods yet;
-Pro preserves the existing full client selection as a draft. Both server recipes
-currently select the same 30 mod entries and 11 reviewed shared gameplay config files.
-Client drafts still omit configs. Target-specific server settings are not bundled yet.
-Survival's `2026.10.12` release candidate has passed local checks and can export without
-`--draft`. The other three recipes retain pending release checks. Nothing is published yet.
+The client split has two draft recipes:
+
+- **Blockery Client:** 13 mods plus Redstone Tweaks. Simple Voice Chat, AppleSkin, Shulker Box
+  Tooltip, Status Effect Timer, Xaero's minimap/world map, and MiniHUD form the everyday
+  experience. Lithium, FerriteCore, ImmediatelyFast, and the existing View Distance Fix
+  entry live here, with Fabric API and MaLiLib. View Distance Fix is a server-focused
+  fog fix, not a promised client FPS improvement.
+- **Blockery Extras Client:** inherits Blockery Client and adds specialist tools and visuals, including JEI, Axiom,
+  Litematica, Tweakeroo, Inventory Profiles Next, and Fresh Animations with EMF/ETF.
+  It preserves the other previous client entries pending their final review, for a total
+  of 44 mods and two resource packs.
+
+Both client drafts omit configuration and personal instance settings. Defaults,
+keybindings, permissions, and clean-client gameplay still need review before release.
+Both server recipes retain the same 30 mod entries and 11 reviewed shared gameplay
+configs; target-specific settings remain outside the pack. Survival's `2026.10.12`
+candidate passed local checks and was submitted to Modrinth by the owner. Approval
+is pending. Creative and both clients remain release-gated.
 
 ## Build a distribution
 
@@ -24,30 +37,33 @@ Profiles are repository recipes, not a native Packwiz feature.
 
 ```sh
 uv run --script scripts/build_pack.py list
-uv run --script scripts/build_pack.py plan blockery-pro
-uv run --script scripts/build_pack.py build blockery-server-survival --version infrastructure-preview --draft
+uv run --script scripts/build_pack.py plan blockery-client
+uv run --script scripts/build_pack.py build blockery-client --version naming-preview --draft
+uv run --script scripts/build_pack.py build blockery-extras-client --version naming-preview --draft
 ```
 
 Outputs go to ignored `local/dist/`. Drafts have `-draft` in their version and filename
 and are not for publication. Normal release builds are blocked while a recipe has
-pending checks. The empty minimal recipe cannot export yet, even as a draft.
-See [tooling](docs/tooling.md#distribution-builder) for recipe editing and tests.
+pending checks. See [tooling](docs/tooling.md#distribution-builder) for recipe editing,
+validation limits, and tests.
 
 ## Try the pack in Prism Launcher
 
-The earlier combined export can still be imported into Prism Launcher. Direct root
-exports bypass the new distribution recipes and release gates; they are legacy
-validation candidates, not the named client/server releases. Install the
-[pinned Packwiz build](docs/tooling.md), then run:
+Build the named draft above using the [pinned Packwiz build](docs/tooling.md).
+In Prism Launcher, choose **Add Instance → Import** and select either
+`local/dist/blockery-client-naming-preview-draft.mrpack` or
+`local/dist/blockery-extras-client-naming-preview-draft.mrpack`. Use a separate new instance
+for each and Java 21. Do not overwrite an existing player instance.
 
-```sh
-packwiz refresh
-packwiz modrinth export -o Blockery-unreleased.mrpack
-```
+Resource packs are included, not automatically enabled: select Redstone Tweaks in
+Minecraft's resource-pack menu. Blockery Extras Client also includes Fresh Animations and its EMF/ETF
+support mods; enable the resource pack separately if wanted. Existing personalized
+MiniHUD/map settings are not copied. Check overlays and keybindings in the clean
+instance before treating defaults as approved. The [client checks](docs/tooling.md#client-smoke-test)
+cover both drafts.
 
-In Prism Launcher, choose **Add Instance → Import** and select `Blockery-unreleased.mrpack` to create a new instance.
-
-Fresh Animations is included as a resource pack, but it needs Entity Model Features (EMF) to work. If you enable Fresh Animations, install EMF as well; it is not part of this pack yet.
+Direct root `packwiz modrinth export` bypasses distribution selection and release
+checks. It is not the supported way to build either named client pack.
 
 ## What's in here
 

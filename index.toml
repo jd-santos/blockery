@@ -290,6 +290,11 @@ hash = "4d1cd780237c40afa96e338e0c19039726516781f190403ea76ef662f5788cfc"
 metafile = true
 
 [[files]]
+file = "mods/entity-model-features.pw.toml"
+hash = "6c641499f878169c49182799960abfc383fb4a233fbd98d43b81f499d63ee1c2"
+metafile = true
+
+[[files]]
 file = "mods/entitytexturefeatures.pw.toml"
 hash = "ecf68d6785b64c504edd2ba855f96b00c931d4725f31c959e93f92a51a59cb8f"
 metafile = true
@@ -332,6 +337,11 @@ metafile = true
 [[files]]
 file = "mods/inhabitor.pw.toml"
 hash = "95e6ae8c21b34358eef909e4e5571bc81fdae6b60a99cc526ce570b2ea2f3c23"
+metafile = true
+
+[[files]]
+file = "mods/inventory-profiles-next.pw.toml"
+hash = "d7f1ac2142a323bab75a450b96000169fa5d83417ad2952e14588605038bd870"
 metafile = true
 
 [[files]]
