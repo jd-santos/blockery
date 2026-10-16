@@ -11,3 +11,4 @@ workflow. Runtime worlds, private settings, and server backups stay outside it.
 ## Work records
 
 - [Bloom migration and remote updates](work/001-bloom-migration/README.md)
+- [Coordinated pack maintenance](work/002-pack-maintenance/README.md)

@@ -12,6 +12,21 @@ fetched installation and repeatable update process on the newly created third Bl
 split before migrating survival or creative. Avoid recreating staging when the updater
 is introduced.
 
+## Current operating approach
+
+The owner now reports that a generated server pack is running on the host through
+mrpack4server, temporarily pinned to a GitHub Release while Modrinth review is pending.
+Remote settings, installed bytes, target migration, and backup restoration have not been
+independently verified. Earlier statements below about an unadopted installer or an empty
+split describe the preparation stage, not verified current host state.
+
+The priority is now [coordinated pack maintenance](../002-pack-maintenance/README.md).
+The owner chose a practical manual rollback procedure using retained pack archives and
+Bloom backups, with recommended testing at the end of the upgrade process. Extensive
+installer-specific rehearsals are not prerequisites for that tooling. Historical audit
+findings remain useful evidence; they do not authorize host operations or create new
+mandatory test gates. See the [upgrade and rollback guide](../../../docs/upgrades.md).
+
 ## Decisions and boundaries
 
 - The user confirmed the exported client pack works in Prism and local conversion is complete.

@@ -34,6 +34,18 @@ Do not replace the pinned revision with `@latest`. To update Packwiz, choose and
 record a new commit, build it locally, inspect its embedded module information,
 and review the changes it produces in a disposable pack before adopting it here.
 
+## Coordinated upgrades
+
+The [upgrade guide](upgrades.md) describes report-first maintenance, temporary disabling,
+release-set artifacts, recommended final checks, and manual backup/archive rollback.
+Run `uv run --script scripts/validate_pack.py` for offline source/index/profile checks.
+`scripts/upgrade_pack.py report` assesses chosen targets without changing pins;
+`disable`/`enable` preview and confirm global exclusions in `build/disabled-mods.toml`.
+The version `apply` command is intentionally unimplemented and refuses changes.
+See the [upgrade guide commands](upgrades.md#commands) for examples and coverage.
+Implementation progress and remaining work are in the
+[maintenance work record](../todo/work/002-pack-maintenance/README.md).
+
 ## Distribution builder
 
 Use Python 3.11 or newer through `uv`; the builder has no third-party Python dependencies.
@@ -51,7 +63,9 @@ anything, or publish to Modrinth.
 - `pending`: release blockers such as unfinished selections, config audits, or runtime tests.
 
 Inheritance unions the parent's and child's selections and pending checks, preserving order
-and removing duplicates. It cannot remove parent entries. Blockery Extras Client adds extras to the lightweight
+and removing duplicates. A child cannot remove parent entries. The global disable policy is
+applied consistently after inheritance and preserves original metadata/pins; `plan` reports
+excluded entries and their reasons. Blockery Extras Client adds extras to the lightweight
 client base; creative can add verified differences to the common survival selection. A
 variation that must remove something needs a separate explicit selection, not a copied pack.
 Config overlays with destination remapping are not implemented yet.

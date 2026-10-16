@@ -2,7 +2,7 @@
 
 Vicious Blockery is a lightly-modded private Minecraft server for friends and family. Mods mostly target building tools, smoother everyday play, and performance fixes. If you're looking to join, the [Getting Started guide](https://blockery.notion.site/Getting-Started-568ff72b8dd24ce580cb377cfa1ffeaa) has the server details and setup steps.
 
-This repository records shared Minecraft versions, mod metadata, resource packs, and reviewed settings. Separate build recipes select content for player clients and survival/creative servers without duplicating complete packs. The player client pack remains optional. The shared versions are **Minecraft 1.21.10** and **Fabric Loader 0.19.5**. Server deployment and Modrinth publishing are still being set up.
+This repository records shared Minecraft versions, mod metadata, resource packs, and reviewed settings. Separate build recipes select content for player clients and survival/creative servers without duplicating complete packs. The player client pack remains optional. The shared versions are **Minecraft 1.21.10** and **Fabric Loader 0.19.5**. Coordinated upgrades and Modrinth publishing are still being set up.
 
 ## Distribution names
 
@@ -69,10 +69,12 @@ checks. It is not the supported way to build either named client pack.
 
 - `pack.toml` and `index.toml` record the Minecraft and loader versions and the files Packwiz installs.
 - `mods/`, `resourcepacks/`, and `config/` hold the shared pack definition. Packwiz records where to download each mod and resource pack; the downloads themselves are not committed here.
-- `build/profiles.toml` defines explicit selections for client and server outputs; `scripts/build_pack.py` stages and exports them without changing root pack files.
-- `tests/` covers recipe selection, inheritance, safety checks, and build isolation.
+- `build/profiles.toml` defines explicit selections; `build/disabled-mods.toml` retains reversible exclusions. `scripts/build_pack.py` exports selected content without changing root pack files.
+- `scripts/validate_pack.py` checks source integrity; `scripts/upgrade_pack.py` reports upgrade candidates and confirms exclusions. Version application is not implemented yet.
+- `.github/workflows/validate.yml` runs checks and produces short-lived draft artifacts, not public releases or deployments.
+- `tests/` covers recipe selection, inheritance, safety checks, build isolation, reports, exclusions, and archive audits.
 - `deploy/targets/` is reserved for settings that differ between the [main and creative servers](deploy/README.md). No differences have been confirmed yet.
-- `docs/` has notes on [Packwiz tooling](docs/tooling.md) and [syncing local client data](docs/local-sync.md).
+- `docs/` covers [Packwiz tooling](docs/tooling.md), [coordinated upgrades and manual rollback](docs/upgrades.md), and [syncing local client data](docs/local-sync.md).
 
 ## License
 
