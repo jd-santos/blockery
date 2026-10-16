@@ -184,9 +184,12 @@ an edit-time stale import-order warning. The reviewer inspected code/fixtures/do
 did not run checks or fetch the linked Fabric source; execution evidence is the parent's.
 The earlier stalled batch was aborted and replaced by individual bounded checks.
 
-The audit slice has no known remaining blocker and is prepared for an owner-authorized
-local commit on `dependency-audit`, based on `cebe72c`. The commit includes the three
-Python files and five related documentation/work-record files. Canonical pack/index,
+The audit slice has no known remaining blocker. SSH-signed commit `6127ce8` on
+`dependency-audit`, based on `cebe72c`, contains the three Python files and five related
+documentation/work-record files. The owner authorized pushing this topic branch.
+The [quick client playtest](../../../docs/playtest.md) prioritizes a 10–15 minute check
+of launch, joining, controls, voice and rejoining. It is not a push prerequisite for
+this tooling-only slice and does not clear client release gates. Canonical pack/index,
 metadata, configs, recipes, disable policy and Packwiz exclusions have no diff. Unrelated
 `research.md`, other worktrees and retained artifacts remain untouched. No push, runtime
 test, publication or deployment is claimed. Deferred candidate-download/resolver/application

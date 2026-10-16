@@ -161,6 +161,10 @@ uv run --no-project python -m unittest discover -s tests -v
 
 ### Client smoke test
 
+Start with the [10–15 minute playtest](playtest.md) for launch, joining, controls,
+voice and rejoining. The details below remain reference material, not a two-hour
+checklist or a prerequisite for pushing tooling-only changes.
+
 Import each new `naming-preview-draft` archive into a separate new Prism instance,
 not an existing instance. Use Java 21, launch to the title screen, and create a disposable
 singleplayer world. The legacy expanded-client infrastructure smoke test does not validate these
