@@ -23,8 +23,9 @@ is introduced.
   matching `pack.toml`. The older sandbox JAR filename is not proof of the running version.
   Confirm actual startup output before migrating worlds.
 - Prefer a hosted pack and updater over manually uploading a complete instance.
-- Prepare Blockery Server Survival for Modrinth first, for use with Bloom. Minimal and
-  Pro client release preparation can wait. The user approved preparing the listing and
+- Prepare Blockery Server Survival for Modrinth first, for use with Bloom. Client release
+  preparation was deferred during that slice; the approved client split is recorded below.
+  The user approved preparing the listing and
   distribution review, not uploading, configuring Bloom, or migrating runtime state.
   Draft copy and publication evidence are in [Modrinth release preparation](modrinth-release.md).
 - Describe the pack's intended audience as a small, private, whitelisted friends-and-family
@@ -32,25 +33,26 @@ is introduced.
   Disclose AI assistance with Packwiz configuration, Python tooling/tests, dependency checks,
   deployment preparation, and writing, including the required Modrinth content-disclosure
   setting. Do not imply that hosted migration has happened or that AI created the upstream mods.
-- The existing Blockery distribution is the player-facing client pack. Server deployment
-  artifacts/configuration are distinct outputs, potentially one each for survival and
-  creative. Do not label the current combined validation export a finished server release.
+- Blockery is the umbrella project. Blockery Client and Blockery Extras Client are
+  player-facing distributions, distinct from survival and creative server outputs.
+  Do not label the legacy combined validation export a finished server release.
 - Preserve one shared source of truth without duplicating complete packs per target.
   Explicit distribution/profile selection must distinguish client content from server
   content and reviewed target variations. Creative-only mods and survival omissions
   remain undecided.
-- The default player-facing `blockery` client pack should be minimal. The expanded
-  loadout is named `blockery-pro` and will be separately available. Selection should
-  distinguish broadly useful mods from specialist tools, but individual membership
-  (including MiniHUD) is deferred until client release preparation. Blockery is also
-  the umbrella repository/project name, not shorthand for the full client loadout.
+- The default player-facing `blockery-client` is a lightweight everyday experience,
+  not the smallest possible mod count. `blockery-extras-client` inherits it and adds specialist
+  tools and visual extras. The user approved voice chat, small UI helpers, both Xaero
+  maps, MiniHUD, Redstone Tweaks, and all existing optimization entries in Blockery Client; JEI,
+  Axiom, Litematica, Tweakeroo, Inventory Profiles Next, and Fresh Animations belong in
+  Blockery Extras Client. Blockery is also the umbrella project name, not shorthand for the full loadout.
 - The user approved a small Python build layer managed through `uv`. Profiles are
   repository build recipes, not a native Packwiz feature. Packwiz supports client/server
   side metadata and optional mods, but does not provide named profile inheritance.
   Implement explicit recipes and isolated generated packs without changing root sources.
   Client membership and config approvals can remain pending while infrastructure is built.
   [Packwiz metadata reference](https://packwiz.infra.link/reference/pack-format/mod-toml/)
-- Prefer separate Modrinth client projects for minimal and full loadouts rather than
+- Prefer separate Modrinth projects for the base and extras clients rather than
   interleaving them as releases in one update stream. Modrinth's
   [content rules](https://modrinth.com/legal/rules) distinguish direct linear upgrades
   from files with different functionality. No project creation or upload is authorized.
@@ -62,8 +64,9 @@ is introduced.
 
 ## Repository evidence
 
-The current pack has 46 mod entries: 26 marked `both`, 16 marked `client`, and 4 marked
-`server`. Both server recipes select 30 entries and 11 reviewed gameplay config files.
+The current pack has 48 mod entries: 26 marked `both`, 18 marked `client`, and 4 marked
+`server`. The client split added EMF and Inventory Profiles Next without changing existing
+pins. Both server recipes still select 30 entries and 11 reviewed gameplay config files.
 Local fresh-world startup and console shutdown passed for both exact server drafts.
 The owner confirmed completion of the linked local player check and authorized clearing
 Survival's gate. The non-draft `2026.10.12` Survival candidate passed exact payload,
@@ -184,15 +187,72 @@ separately because file backups do not establish preservation of panel settings.
 
 - Recipes select explicit metadata and reviewed config paths from the shared sources.
   Generated packs and exports belong under ignored `local/`, not in target source trees.
-- `blockery-pro` can inherit the client base; both server recipes can reuse one server
+- `blockery-extras-client` can inherit the client base; both server recipes can reuse one server
   selection. Do not inherit client configuration into server outputs.
-- Keep the minimal selection undecided and preserve the current full client mod selection
-  as a draft Pro recipe. No config is implicitly copied or approved by inventorying it.
+- Implement the approved Blockery Client/Blockery Extras Client boundary with additive inheritance. Preserve other
+  previous client entries in Blockery Extras Client pending their review rather than silently dropping them.
+  No config is implicitly copied or approved by inventorying it.
 - Pending recipes must refuse normal release builds. Explicit draft builds are for
   infrastructure checks, not publication or claims of runtime compatibility.
 - Validate recipe inheritance, mod sides, confined paths, private/runtime-file exclusions,
   source immutability, and generated pack/export selection with local tests.
 - No Modrinth upload, Bloom changes, launcher execution, or world transfer in this slice.
+
+## Client split
+
+The parent is the sole writer on `split-client-packs`. Scope is client recipes, missing
+client dependencies, regression tests, documentation, and isolated draft exports. The
+user subsequently authorized committing ready source changes and shipping the topic
+branch through a pull request. Client publication, live instance changes, and Bloom
+operations remain unauthorized; clean-client validation still gates client releases.
+
+- The final client identities are `blockery-client` / **Blockery Client** and
+  `blockery-extras-client` / **Blockery Extras Client**. The extras client inherits the
+  base client. Retired client recipe names are rejected rather than kept as aliases;
+  the umbrella Blockery identity and both server identities remain unchanged.
+- Blockery Client has 13 mods plus Redstone Tweaks. Fabric API and MaLiLib are the required API
+  entries; XaeroLib is already nested in the map JARs. Cloth Config and Fabric Language
+  Kotlin remain in Blockery Extras Client with the features that use them.
+- Blockery Extras Client has 44 mods and two resource packs. It retains the previous full client selection
+  and adds Inventory Profiles Next 2.2.4 (`O7RBXm3n` / `OUS6sPr1`) and EMF 3.3.12
+  (`4I1XuqiY` / `9Gv6SVe7`). Existing libIPN 6.6.2 and ETF 7.2.4 satisfy their declared
+  requirements. Other carried-over extras still need review before publication.
+- Both clients deliberately omit all legacy configs, instance options, server lists,
+  map history, and personal settings. Resource-pack downloads are not automatically
+  enabled. The legacy MiniHUD config has a light-level overlay selected; do not copy it
+  into the new packs as a supposedly conservative default. Clean-instance defaults and
+  keybindings remain an explicit release gate.
+- The quick performance review found plausible map, large-overlay, and concurrent-voice
+  costs, not measured severity or FPS results. Actual low-end-hardware checks remain
+  necessary. View Distance Fix is retained in Blockery Client for loadout continuity, not as a
+  verified client optimization. No new optimization mods were added.
+- Hash-verified all 46 distinct client downloads against exact public Modrinth records,
+  including declared Minecraft/Fabric support. Recursively inspected nested Fabric
+  metadata: no missing required mod IDs or Modrinth project dependencies. Fabric Loader
+  0.19.5's own version-predicate API checked 545 selected dependency/conflict constraints
+  with zero failures. This is static evidence, not a Minecraft client launch.
+  Pre-rename static receipts for the unchanged selections: `local/audit/client-split-dependencies.json`,
+  `local/audit/client-split-dependency-check.txt`, and
+  `local/audit/client-version-predicates.tsv`.
+- Both `naming-preview-draft` archives contain only their selected downloads and
+  two byte-identical notices, with no config overrides. Verified CRCs, safe/unique paths,
+  hashes, sizes, URL encoding equivalence, side flags, and Minecraft/loader pins.
+  Source snapshot, server recipes/inputs, and submitted Survival archive are unchanged
+  by exports. The renamed archives match the previous installable payloads exactly;
+  only manifest display names and the draft version label changed. Current receipt:
+  `local/audit/client-rename-exports.json`; verification:
+  `local/audit/check_client_rename.py`. The earlier `client-split-exports.json` and source
+  snapshot remain retained pre-rename evidence, not the current filenames/hashes.
+  - Blockery Client: `local/dist/blockery-client-naming-preview-draft.mrpack`,
+    SHA-256 `e1d69131276d64ece99852a6c76c72db6ff48c3446cc5c3747274623ebe6b0cf`.
+  - Blockery Extras Client: `local/dist/blockery-extras-client-naming-preview-draft.mrpack`,
+    SHA-256 `e68b324796ef65ad786217ba50d2977422881535e046ed3396e7472eeb820b52`.
+- Fresh correctness and design reviews found no blockers in the gated draft preparation.
+  Reviewers inspected checked-out source and supplied receipts; their tool access did
+  not expose Git diff/status or permit independent archive/test execution. The parent
+  verified the complete diff, tests, server table equality, and exact archives. The
+  two optional design findings were addressed in the tracker and retention test.
+  No client launch, runtime defaults approval, or measured performance is claimed.
 
 ## Work
 
@@ -204,7 +264,7 @@ separately because file backups do not establish preservation of panel settings.
 - [x] Inventory repository mod side declarations and identify a fixed-JAR hosted installer candidate.
 - [x] Obtain filename-only mod inventories from survival and creative and classify missing,
   extra, version-different, and target-specific entries. Do not collect secrets or full server dumps.
-- [x] Record the user's successful Pro draft Prism smoke test.
+- [x] Record the user's successful legacy expanded-client draft Prism smoke test.
 - [ ] Verify side declarations, server dependencies, exported server files, and compatibility.
   - [x] Check all 29 exact Modrinth records, download hashes, and server-visible Fabric dependency IDs, including nested JARs.
   - [x] Review non-sensitive gameplay config candidates and record findings in the [server audit](server-audit.md).
@@ -215,13 +275,15 @@ separately because file backups do not establish preservation of panel settings.
   - [x] Resolve WorldEdit's undocumented Permissions API `>=0.5.0` integration requirement with an explicit 0.5.0 server pin and repeat initialization.
   - [x] Obtain Minecraft EULA acceptance for the disposable local test and verify fresh-world startup and graceful shutdown for both exact server drafts.
   - [x] Verify player-facing gameplay and operator/non-operator permissions using the [local player check](modrinth-release.md#local-player-check); owner-confirmed completion and authorization to clear the gate, not independently observed by the agent.
-- [ ] Establish client/server output conventions and client profile boundaries before
-  release cleanup. Keep the player-facing Blockery identity separate from server
-  deployment releases; settle default/full/minimal client scope and visibility.
+- [x] Establish distinct client/server outputs and the approved Blockery Client/Blockery Extras Client base-plus-extras
+  boundary. Keep the player-facing Blockery identity separate from server deployment
+  releases; track remaining client publication and carry-over review below.
 - [ ] Prepare the Survival server release first; retain client release/config review as deferred work.
   - [x] Draft project fields, description, and server-specific version changelog in [Modrinth release preparation](modrinth-release.md).
   - [x] Revise the public copy for the private whitelisted audience, add specific AI-assistance disclosure and No Chat Reports behavior, and keep internal test provenance in the evidence sections rather than the listing.
-  - [ ] Verify the actual Modrinth editor's server-side environment, AI content-disclosure setting, all 30 version dependencies, and Permissions results before submission; prepared copy does not verify account-side fields.
+  - [ ] Verify the actual Modrinth editor's server-side environment, AI content-disclosure setting, all 30 version dependencies, and Permissions results; prepared copy does not verify account-side fields.
+  - [x] Submit the Survival project for Modrinth review, as reported by the owner. Approval, uploaded artifact bytes, and account-side fields have not been independently verified; the release-preparation document remains a pre-submission reference.
+  - [ ] Address moderator feedback and, after approval, record the public project/version IDs and verified download URL for pinned Bloom staging.
   - [x] Verify all 30 exact Modrinth-hosted downloads against the tested survival archive and confirm its 11 selected overrides with no bundled JARs/resource packs.
   - [x] Record GPL for original Blockery material, third-party terms for all third-party works including Axiom, and a normal release channel without a beta label.
   - [x] Confirm GPL-3.0-or-later and initial version `2026.10.12`, and add the scoped repository license declaration.
@@ -235,9 +297,17 @@ separately because file backups do not establish preservation of panel settings.
   - [x] Prepare ordinary configuration-override disclosure and upstream permission evidence for Modrinth review without claiming a blanket config exemption.
   - [ ] Address any configuration permission evidence requested during the authorized Modrinth moderation process.
   - [x] Record the owner's local player-check confirmation, clear only Survival's gate, export non-draft `2026.10.12`, and verify its exact archive plus fresh-start/pinned-restart/save-stop behavior. All 18 unit tests pass; Creative and clients remain gated.
-- [ ] Before client publication, finalize minimal/Pro selections, review the legacy 56 shared
-  overrides for intended distribution/client placement, verify permissions, and test the
-  exact named candidate in a clean client instance.
+- [ ] Before client publication, review retained specialist entries, client defaults, permissions,
+  and the exact named candidates in clean client instances.
+  - [x] Implement the approved Blockery Client/Blockery Extras Client split with additive inheritance and explicit client-only EMF/Inventory Profiles Next pins.
+  - [x] Verify exact downloads, Minecraft/Fabric declarations, nested dependency IDs, and version predicates without executing mods.
+  - [x] Pass all 23 unit tests, both renamed draft exports, exact archive/source/server preservation checks, active changed-file diagnostics, and Git whitespace checks.
+  - [x] Rename client recipe keys, display names, inheritance, examples, tests, and current artifact references; reject retired recipe aliases and retain old artifacts only as evidence.
+  - [x] Complete the bounded correctness/design follow-up for the user-requested rename with no blockers; clarify remaining umbrella/client wording and formal display names.
+  - [x] Complete fresh correctness/design reviews with no blockers; clarify the completed boundary checklist and strengthen the regression assertion for all retained Blockery Extras Client entries.
+  - [ ] Confirm client project visibility and publishing metadata before creating or submitting the separate client projects.
+  - [ ] Review the legacy 56 shared overrides for intended client placement; bundle only deliberately approved settings, not personalized configs.
+  - [ ] Complete the [clean-instance client checks](../../../docs/tooling.md#client-smoke-test), including keybindings, conservative overlays, voice, optional resource packs, and responsiveness.
 - [ ] Choose hosting/publication and a pinned updater release after checking distribution permissions.
   For Modrinth, prepare project summary/description, categories, license, optional icon/support
   links, and version metadata/changelog. Obtain publication authorization before uploading.
@@ -260,7 +330,7 @@ separately because file backups do not establish preservation of panel settings.
 The uv/Python builder is implemented in `scripts/build_pack.py`, with recipes in
 `build/profiles.toml` and fixture tests in `tests/test_build_pack.py`. All 12 unittest
 cases passed after review fixes. Active LSP checks of the script, tests, and TOML recipe reported no
-findings. Real draft exports under `local/dist/` passed archive checks: Pro contains
+findings. Real draft exports under `local/dist/` passed archive checks: the legacy expanded client contains
 44 download entries (client mods plus two resource packs); survival and creative each
 contain 29 server mod entries. All preserve Minecraft 1.21.10 / Fabric 0.19.5 and use
 an `infrastructure-preview-draft` manifest version. None include config overrides or
@@ -278,7 +348,7 @@ and Packwiz Ruff-cache exclusions, refreshed the index, and rechecked that cache
 builder/workbench files are not indexed. The draft recipe exports were already isolated
 and unaffected. Fixture tests and diff checks passed again during commit preparation.
 Manual Prism smoke-test instructions are in `docs/tooling.md`. The user subsequently
-confirmed the Pro draft test looks good. This confirms the reported client smoke test,
+confirmed the legacy expanded-client draft test looks good. This confirms the reported client smoke test,
 not final client membership, bundled configs, or dedicated-server compatibility.
 
 The [server audit](server-audit.md) checked all 29 exact releases and hash-verified JARs,
@@ -363,9 +433,10 @@ tests, docs, and permitted JSON runtime summaries; they did not independently ru
 server/tests or inspect private logs. Exact archive hashes, runtime summaries, and remaining
 validation are in the [server audit](server-audit.md).
 
-Minimal/Pro membership can wait until the first client release; it does not block
-server build infrastructure. Config audits and dependencies still block real server
-deployment. Existing full client metadata remains in the Pro draft, not discarded.
+The approved Blockery Client/Blockery Extras Client boundary is now implemented as described in [Client split](#client-split).
+The earlier full client loadout is retained through Blockery Extras Client inheritance, with the two missing
+client additions. Client defaults and actual runtime tests remain gated separately from
+server deployment. Config audits and hosted lifecycle tests still block real server deployment.
 
 Local TOML parsing established the metadata counts above. Modrinth API records verified
 the three added releases' declared Minecraft/Fabric compatibility and listed dependencies.

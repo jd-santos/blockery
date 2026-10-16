@@ -102,7 +102,7 @@ read in this audit.
 4. Obtain publication/deployment authorization separately. Test the Bloom environment
    before considering private world migration or cutover.
 
-The user confirmed the Pro draft Prism smoke test looks good. It does not satisfy any
+The user confirmed the legacy expanded-client draft Prism smoke test looks good. It does not satisfy any
 of the server startup or configuration checks above.
 
 ## Pinned installer and local preflight

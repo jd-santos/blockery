@@ -1,20 +1,34 @@
 # Explicit build recipes, not native Packwiz profiles.
 # Server drafts include reviewed shared gameplay configs. Client drafts omit configs.
-# The player base stays undecided; Pro preserves the current full client selection.
+# Blockery Client is the everyday base; Blockery Extras Client adds tools and visuals.
 
-[profiles.blockery]
-name = "Blockery"
+[profiles.blockery-client]
+name = "Blockery Client"
 side = "client"
-mods = []
+mods = [
+  "mods/appleskin.pw.toml",
+  "mods/fabric-api.pw.toml",
+  "mods/ferrite-core.pw.toml",
+  "mods/immediatelyfast.pw.toml",
+  "mods/lithium.pw.toml",
+  "mods/malilib.pw.toml",
+  "mods/minihud.pw.toml",
+  "mods/shulkerboxtooltip.pw.toml",
+  "mods/simple-voice-chat.pw.toml",
+  "mods/statuseffecttimer.pw.toml",
+  "mods/view-distance-fix.pw.toml",
+  "mods/xaeros-minimap.pw.toml",
+  "mods/xaeros-world-map.pw.toml",
+  "resourcepacks/redstone-tweaks.pw.toml",
+]
 files = []
-pending = ["Choose broadly useful client mods and approve their configs."]
+pending = ["Review client defaults, config permissions, and keybindings; test the exact base client candidate in a clean client instance."]
 
-[profiles.blockery-pro]
-name = "Blockery Pro"
-extends = "blockery"
+[profiles.blockery-extras-client]
+name = "Blockery Extras Client"
+extends = "blockery-client"
 mods = [
   "mods/amecs.pw.toml",
-  "mods/appleskin.pw.toml",
   "mods/architectury-api.pw.toml",
   "mods/armor-poser.pw.toml",
   "mods/audioplayer.pw.toml",
@@ -24,42 +38,31 @@ mods = [
   "mods/cloth-config.pw.toml",
   "mods/collective.pw.toml",
   "mods/coord-finder.pw.toml",
+  "mods/entity-model-features.pw.toml",
   "mods/entitytexturefeatures.pw.toml",
-  "mods/fabric-api.pw.toml",
   "mods/fabric-language-kotlin.pw.toml",
   "mods/fallingtree.pw.toml",
-  "mods/ferrite-core.pw.toml",
   "mods/horse-statistics.pw.toml",
-  "mods/immediatelyfast.pw.toml",
+  "mods/inventory-profiles-next.pw.toml",
   "mods/jei.pw.toml",
   "mods/just-mob-heads.pw.toml",
   "mods/just-player-heads.pw.toml",
   "mods/libipn.pw.toml",
   "mods/litematica.pw.toml",
-  "mods/lithium.pw.toml",
-  "mods/malilib.pw.toml",
-  "mods/minihud.pw.toml",
   "mods/modmenu.pw.toml",
   "mods/no-chat-reports.pw.toml",
   "mods/placeholder-api.pw.toml",
   "mods/screencopy.pw.toml",
   "mods/shulker-drops-two.pw.toml",
-  "mods/shulkerboxtooltip.pw.toml",
   "mods/silence-mobs.pw.toml",
-  "mods/simple-voice-chat.pw.toml",
-  "mods/statuseffecttimer.pw.toml",
   "mods/stendhal.pw.toml",
   "mods/styled-chat.pw.toml",
   "mods/tweakeroo.pw.toml",
-  "mods/view-distance-fix.pw.toml",
   "mods/worldedit.pw.toml",
-  "mods/xaeros-minimap.pw.toml",
-  "mods/xaeros-world-map.pw.toml",
   "resourcepacks/fresh-animations.pw.toml",
-  "resourcepacks/redstone-tweaks.pw.toml",
 ]
 files = []
-pending = ["Separate specialist extras from the player base; audit dependencies and configs."]
+pending = ["Review retained specialist entries and client config permissions; test the exact extras client candidate in a clean client instance."]
 
 [profiles.blockery-server-survival]
 name = "Blockery Server Survival"

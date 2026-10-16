@@ -17,10 +17,11 @@ our Python build layer, not a native Packwiz feature or a launcher's installed i
 _Avoid_: Release version
 
 **Distribution**:
-A named installable output with a specific audience. `blockery` is the default minimal
-player client; `blockery-pro` is the expanded client. `blockery-server-survival` and
-`blockery-server-creative` are server outputs. Membership and configuration approvals
-remain unfinished, so current recipe builds are drafts.
+A named installable output with a specific audience. `blockery-client` is the default lightweight
+player client; `blockery-extras-client` inherits it and adds specialist tools and visual extras.
+`blockery-server-survival` and `blockery-server-creative` are server outputs. Each recipe
+has its own release gate; selecting membership does not approve client configuration,
+runtime compatibility, or publication.
 _Avoid_: World, deployment target
 
 **Deployment target**:

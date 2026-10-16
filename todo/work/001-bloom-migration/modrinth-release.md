@@ -302,7 +302,7 @@ requirement for every setting. Preserve upstream terms and address any moderator
 ## Local player check
 
 The ignored licensed sandbox above is disposable, has no production data, and is stopped.
-Use a fresh Prism instance with the previously tested Pro draft as a compatible test client;
+Use a fresh Prism instance with the previously tested legacy expanded-client draft as a compatible test client;
 this does not settle the client release membership. Do not import the server artifact as
 that client. The following check needs the owner's real client session, not credentials
 shared with an agent.

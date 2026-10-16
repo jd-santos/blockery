@@ -1,4 +1,5 @@
 # Repository metadata and documentation
+/*.md
 /.git/
 /.github/
 /.gitattributes

@@ -40,7 +40,7 @@ Use Python 3.11 or newer through `uv`; the builder has no third-party Python dep
 Packwiz remains the exporter. The builder does not download or execute Minecraft, deploy
 anything, or publish to Modrinth.
 
-`build/profiles.toml` has four recipes: `blockery`, `blockery-pro`,
+`build/profiles.toml` has four recipes: `blockery-client`, `blockery-extras-client`,
 `blockery-server-survival`, and `blockery-server-creative`. Each declares:
 
 - `name`: the output pack's display name.
@@ -51,7 +51,7 @@ anything, or publish to Modrinth.
 - `pending`: release blockers such as unfinished selections, config audits, or runtime tests.
 
 Inheritance unions the parent's and child's selections and pending checks, preserving order
-and removing duplicates. It cannot remove parent entries. Pro can add extras to the minimal
+and removing duplicates. It cannot remove parent entries. Blockery Extras Client adds extras to the lightweight
 client base; creative can add verified differences to the common survival selection. A
 variation that must remove something needs a separate explicit selection, not a copied pack.
 Config overlays with destination remapping are not implemented yet.
@@ -63,12 +63,24 @@ reading config contents or copying files:
 
 ```sh
 uv run --script scripts/build_pack.py list
-uv run --script scripts/build_pack.py plan blockery-pro
+uv run --script scripts/build_pack.py plan blockery-extras-client
 ```
 
-The minimal client selection is still empty. Pro retains the current client loadout;
-server recipes retain the current server mod selection plus 11 reviewed shared gameplay
-config files. Creative inherits both selections from survival. The explicit server-only
+Blockery Client (`blockery-client`) selects 13 mods and Redstone Tweaks: voice chat, small UI helpers,
+Xaero's maps, MiniHUD, and the existing optimization entries. Fabric API and MaLiLib
+supply required APIs; XaeroLib is nested in the map downloads. Blockery Extras Client inherits every Blockery Client
+entry and adds JEI, Axiom, Litematica, Tweakeroo, Inventory Profiles Next, Fresh Animations,
+and the other retained client entries. Blockery Extras Client totals 44 mods and two resource packs.
+Inventory Profiles Next 2.2.4 uses the existing libIPN 6.6.2 and Fabric Language Kotlin
+pins. Fresh Animations has EMF 3.3.12 and the existing ETF 7.2.4 available in Blockery Extras Client.
+
+The other old client entries remain in Blockery Extras Client as carry-over, not as approval of every
+client-side gameplay mod or config. Review them before release. View Distance Fix
+remains in Blockery Client to preserve the existing loadout, but its server-focused fog behavior
+is not evidence of a client FPS improvement. No new optimization mods were added.
+
+Server recipes retain 30 mod entries plus 11 reviewed shared gameplay config files.
+Creative inherits both selections from survival. The explicit server-only
 Fabric Permissions API 0.5.0 pin satisfies WorldEdit's integration version check; it does
 not install a permission manager or grant players permissions. Armor stand resizing is
 operator-only. Client drafts still omit configs. The comment-only Lithium config, empty
@@ -78,14 +90,18 @@ remain target-specific review work, not implicit overrides. See the
 [server audit](../todo/work/001-bloom-migration/server-audit.md) for selection evidence.
 Survival's local player check is owner-confirmed, and its `2026.10.12` non-draft candidate
 has passed exact archive, fresh-start, and pinned-restart checks. Other recipes remain gated.
-MiniHUD and other membership decisions can wait until client release preparation.
-Target settings and Bloom deployment behavior still need verification before real deployment.
+Client defaults, keybindings, retained extras, and clean-instance behavior still need
+review. MiniHUD rendering/overlay defaults have not been runtime-verified for either
+new candidate. Target settings and Bloom deployment behavior still need verification
+before real deployment.
 
 ```sh
-uv run --script scripts/build_pack.py build blockery-pro --version infrastructure-preview --draft
-uv run --script scripts/build_pack.py build blockery-server-survival --version permissions-api-preview --draft
-uv run --script scripts/build_pack.py build blockery-server-creative --version permissions-api-preview --draft
+uv run --script scripts/build_pack.py build blockery-client --version naming-preview --draft
+uv run --script scripts/build_pack.py build blockery-extras-client --version naming-preview --draft
 ```
+
+The earlier server draft commands remain useful with a fresh version label; the
+existing preview archives are retained and cannot be overwritten.
 
 Each command stages selected sources in a temporary pack, refreshes its own index, and
 exports into ignored `local/dist/`. Every recipe also stages exact copies of root `LICENSE`
@@ -125,13 +141,31 @@ Run fixture tests without network calls or a Minecraft process:
 uv run --no-project python -m unittest discover -s tests -v
 ```
 
-For a manual client smoke test, import
-`local/dist/blockery-pro-infrastructure-preview-draft.mrpack` into a new Prism instance,
+### Client smoke test
+
+Import each new `naming-preview-draft` archive into a separate new Prism instance,
 not an existing instance. Use Java 21, launch to the title screen, and create a disposable
-singleplayer world. Confirm the selected client mods load and server-only additions are
-absent. This draft intentionally has no configs, so it does not test the old personalized
-settings or the final minimal/Pro split. Leave Fresh Animations disabled unless EMF has
-also been installed. Report errors using a short non-sensitive excerpt, not a full log.
+singleplayer world. The legacy expanded-client infrastructure smoke test does not validate these
+new selections. Both drafts intentionally omit configs, options, server lists, map history,
+voice settings, and personal Axiom settings. No existing instance is changed by the build.
+
+- Confirm the selected mods load and server-only additions are absent. Blockery Client must have
+  no JEI, Axiom, Litematica, Tweakeroo, Inventory Profiles Next, or Fresh Animations.
+- Check AppleSkin, shulker previews, status timers, both maps, and MiniHUD. Verify MiniHUD
+  starts without expensive overlays enabled, and that map/voice/MiniHUD shortcuts are
+  usable without collisions. Approve or revise defaults based on the actual instance,
+  not the unbundled legacy configs.
+- Enable Redstone Tweaks manually and check readability. In Blockery Extras Client, optionally enable
+  Fresh Animations and check animated entities with its included EMF/ETF support.
+- In Blockery Extras Client, check JEI, inventory sorting, and the specialist tools. Confirm Blockery Client's features
+  remain available. Axiom's separate multiplayer authorization still applies.
+- Compare responsiveness while exploring with maps active and when toggling MiniHUD
+  overlays. Performance claims need actual hardware testing, not a mod count.
+- Verify voice chat against an authorized compatible test server. Multiplayer checks
+  must not change Bloom or imply permission to use a live world as a test environment.
+
+Report errors using short non-sensitive excerpts, not full logs. Keep both normal
+client releases gated until the exact candidates and any approved config changes pass.
 
 No Bloom or world-migration test is needed to commit the builder. Real server startup,
 config audits, updates, and rollback remain requirements for deployment, not evidence
