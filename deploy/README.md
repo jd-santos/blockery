@@ -1,6 +1,15 @@
 # Deployment targets
 
-Blockery has one shared Packwiz definition and multiple Bloom deployment targets. Both targets receive the same Minecraft version, loader, mods, and shared configuration from the repository root.
+Blockery has shared Packwiz sources and multiple Bloom deployment targets. Server build
+recipes select metadata/configs from those sources; player clients are separate outputs.
+`blockery-server-survival` selects the shared server mod list, and
+`blockery-server-creative` inherits that selection and the 11 reviewed shared gameplay
+config files. Target-specific config review and runtime checks remain pending, so their
+exports are drafts, not deployment-ready packs.
+
+The existing `main/` directory corresponds to survival. It has not been renamed.
+The creative directory remains `creative/`. These target directories are not complete
+pack copies or player client profiles.
 
 Target directories contain only intentional differences. They must not duplicate the shared pack or contain runtime state.
 
@@ -28,6 +37,14 @@ Do not store Bloom credentials, server addresses that should remain private, RCO
 
 ## Future deployment flow
 
-Deployment automation should build the common server pack once, install it into the selected Bloom split, and then apply that target's overlay. It must leave runtime worlds and target-owned state untouched.
+The local builder composes each server output from shared sources and its explicit
+recipe. Target templates/overlays are not automatically included yet; their selection
+and destination handling need review before implementation. Never inherit client configs
+into a server output merely because they exist at the repository root.
 
-No deployment command exists yet. Add one only after the Bloom connection and update process have been verified.
+Future deployment automation should install the selected pinned server output and apply
+reviewed target settings. It must leave runtime worlds and target-owned state untouched.
+See [tooling](../docs/tooling.md#distribution-builder) for local draft export commands.
+
+No remote deployment command exists yet. Add one only after the Bloom connection and
+update process have been verified.

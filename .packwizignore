@@ -8,8 +8,15 @@
 /CHANGELOG.md
 /CONTEXT.md
 /README.md
+/LICENSE
 /docs/
+/todo/
 /deploy/
+/build/
+/scripts/
+/tests/
+**/__pycache__/
+/.venv/
 **/.gitkeep
 
 # Local credentials and machine-specific settings
@@ -44,6 +51,7 @@
 /Thumbs.db
 /.cache/
 /.packwiz-cache/
+/.ruff_cache/
 /local/
 *.mrpack
 *.zip

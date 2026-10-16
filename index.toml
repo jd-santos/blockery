@@ -18,7 +18,7 @@ hash = "65edc28ca2bf6bd3e3684ae545fb74bcc0ec935a40d6ac60cb68c00c152e34fb"
 
 [[files]]
 file = "config/armorposer.toml"
-hash = "3d722c9b0301d7b8766ac9ee1aa5ca52ad3a46012185a1db2fe348aece6534d3"
+hash = "622a67c04560b1efa56c8a134ba23cfbac616222f46c291e2b1def3ad0ec3d82"
 
 [[files]]
 file = "config/audioplayer/audioplayer-server.properties"
@@ -225,6 +225,11 @@ file = "config/xaero/world-map/server_profiles/default.cfg"
 hash = "d438aea41ca41e93697e059f523686935c0add482f6abe96b532bbf10c6ed80a"
 
 [[files]]
+file = "mods/adventure-platform-mod.pw.toml"
+hash = "642fe1fc518573350dba8f2b7b1e803256a028b201c74b688a7dc12a8dae140a"
+metafile = true
+
+[[files]]
 file = "mods/amecs.pw.toml"
 hash = "298a04fd1b35711ef80dc9455b089fd54ebd3dc3903ff42b7e5924aff628e98a"
 metafile = true
@@ -257,6 +262,11 @@ metafile = true
 [[files]]
 file = "mods/axiom.pw.toml"
 hash = "25411d881f4616e97c1c1459a2e3ae8ce75a4ba0446ed5121bb8a1997e8f5058"
+metafile = true
+
+[[files]]
+file = "mods/better-fabric-console.pw.toml"
+hash = "2ce508a2e7433dc80605342a6e3b086af3912d6d18274543c688d41decee9a67"
 metafile = true
 
 [[files]]
@@ -295,6 +305,11 @@ hash = "7a7f5673b6e33eebaed00c0c453fc41d11c7474eb320c3ce8736d415fcfe2682"
 metafile = true
 
 [[files]]
+file = "mods/fabric-permissions-api.pw.toml"
+hash = "07bf571d79da140f9b3994e765832ff2e115e32d7f91da17d1e2fdd4aa9aedfc"
+metafile = true
+
+[[files]]
 file = "mods/fallingtree.pw.toml"
 hash = "cb914cbb6379455b0d20056ed0bb0ae8d315a66966383d0ba0c67d78c187d156"
 metafile = true
@@ -312,6 +327,11 @@ metafile = true
 [[files]]
 file = "mods/immediatelyfast.pw.toml"
 hash = "e37a2a4436ad64d9d70b7d8dd9dc6c0d0e023247c1408a46404321405d435b41"
+metafile = true
+
+[[files]]
+file = "mods/inhabitor.pw.toml"
+hash = "95e6ae8c21b34358eef909e4e5571bc81fdae6b60a99cc526ce570b2ea2f3c23"
 metafile = true
 
 [[files]]

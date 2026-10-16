@@ -1,0 +1,119 @@
+# Explicit build recipes, not native Packwiz profiles.
+# Server drafts include reviewed shared gameplay configs. Client drafts omit configs.
+# The player base stays undecided; Pro preserves the current full client selection.
+
+[profiles.blockery]
+name = "Blockery"
+side = "client"
+mods = []
+files = []
+pending = ["Choose broadly useful client mods and approve their configs."]
+
+[profiles.blockery-pro]
+name = "Blockery Pro"
+extends = "blockery"
+mods = [
+  "mods/amecs.pw.toml",
+  "mods/appleskin.pw.toml",
+  "mods/architectury-api.pw.toml",
+  "mods/armor-poser.pw.toml",
+  "mods/audioplayer.pw.toml",
+  "mods/axes-are-weapons.pw.toml",
+  "mods/axiom.pw.toml",
+  "mods/bookshelf-inspector.pw.toml",
+  "mods/cloth-config.pw.toml",
+  "mods/collective.pw.toml",
+  "mods/coord-finder.pw.toml",
+  "mods/entitytexturefeatures.pw.toml",
+  "mods/fabric-api.pw.toml",
+  "mods/fabric-language-kotlin.pw.toml",
+  "mods/fallingtree.pw.toml",
+  "mods/ferrite-core.pw.toml",
+  "mods/horse-statistics.pw.toml",
+  "mods/immediatelyfast.pw.toml",
+  "mods/jei.pw.toml",
+  "mods/just-mob-heads.pw.toml",
+  "mods/just-player-heads.pw.toml",
+  "mods/libipn.pw.toml",
+  "mods/litematica.pw.toml",
+  "mods/lithium.pw.toml",
+  "mods/malilib.pw.toml",
+  "mods/minihud.pw.toml",
+  "mods/modmenu.pw.toml",
+  "mods/no-chat-reports.pw.toml",
+  "mods/placeholder-api.pw.toml",
+  "mods/screencopy.pw.toml",
+  "mods/shulker-drops-two.pw.toml",
+  "mods/shulkerboxtooltip.pw.toml",
+  "mods/silence-mobs.pw.toml",
+  "mods/simple-voice-chat.pw.toml",
+  "mods/statuseffecttimer.pw.toml",
+  "mods/stendhal.pw.toml",
+  "mods/styled-chat.pw.toml",
+  "mods/tweakeroo.pw.toml",
+  "mods/view-distance-fix.pw.toml",
+  "mods/worldedit.pw.toml",
+  "mods/xaeros-minimap.pw.toml",
+  "mods/xaeros-world-map.pw.toml",
+  "resourcepacks/fresh-animations.pw.toml",
+  "resourcepacks/redstone-tweaks.pw.toml",
+]
+files = []
+pending = ["Separate specialist extras from the player base; audit dependencies and configs."]
+
+[profiles.blockery-server-survival]
+name = "Blockery Server Survival"
+side = "server"
+mods = [
+  "mods/adventure-platform-mod.pw.toml",
+  "mods/appleskin.pw.toml",
+  "mods/architectury-api.pw.toml",
+  "mods/armor-poser.pw.toml",
+  "mods/audioplayer.pw.toml",
+  "mods/axes-are-weapons.pw.toml",
+  "mods/axiom.pw.toml",
+  "mods/better-fabric-console.pw.toml",
+  "mods/bookshelf-inspector.pw.toml",
+  "mods/cloth-config.pw.toml",
+  "mods/collective.pw.toml",
+  "mods/coord-finder.pw.toml",
+  "mods/fabric-api.pw.toml",
+  "mods/fabric-language-kotlin.pw.toml",
+  "mods/fabric-permissions-api.pw.toml",
+  "mods/fallingtree.pw.toml",
+  "mods/ferrite-core.pw.toml",
+  "mods/inhabitor.pw.toml",
+  "mods/jei.pw.toml",
+  "mods/just-mob-heads.pw.toml",
+  "mods/just-player-heads.pw.toml",
+  "mods/lithium.pw.toml",
+  "mods/no-chat-reports.pw.toml",
+  "mods/placeholder-api.pw.toml",
+  "mods/shulker-drops-two.pw.toml",
+  "mods/silence-mobs.pw.toml",
+  "mods/simple-voice-chat.pw.toml",
+  "mods/styled-chat.pw.toml",
+  "mods/view-distance-fix.pw.toml",
+  "mods/worldedit.pw.toml",
+]
+files = [
+  "config/armorposer.toml",
+  "config/axesareweapons.json5",
+  "config/bookshelfinspector-config.yml",
+  "config/collective.json5",
+  "config/fallingtree.json",
+  "config/justmobheads.json5",
+  "config/justmobheads/headchances.txt",
+  "config/justplayerheads.json5",
+  "config/NoChatReports/NCR-Common.json",
+  "config/shulkerdropstwo.json5",
+  "config/silencemobs.json5",
+]
+pending = []
+
+[profiles.blockery-server-creative]
+name = "Blockery Server Creative"
+extends = "blockery-server-survival"
+mods = []
+files = []
+pending = ["Review creative target differences before release."]
