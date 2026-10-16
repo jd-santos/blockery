@@ -70,9 +70,9 @@ checks. It is not the supported way to build either named client pack.
 - `pack.toml` and `index.toml` record the Minecraft and loader versions and the files Packwiz installs.
 - `mods/`, `resourcepacks/`, and `config/` hold the shared pack definition. Packwiz records where to download each mod and resource pack; the downloads themselves are not committed here.
 - `build/profiles.toml` defines explicit selections; `build/disabled-mods.toml` retains reversible exclusions. `scripts/build_pack.py` exports selected content without changing root pack files.
-- `scripts/validate_pack.py` checks source integrity; `scripts/upgrade_pack.py` reports upgrade candidates and confirms exclusions. Version application is not implemented yet.
+- `scripts/validate_pack.py` checks source integrity; `scripts/upgrade_pack.py` reports upgrade candidates and confirms exclusions. `scripts/audit_dependencies.py` audits locally supplied pinned JAR metadata and bundled providers. Version application is not implemented yet.
 - `.github/workflows/validate.yml` runs checks and produces short-lived draft artifacts, not public releases or deployments.
-- `tests/` covers recipe selection, inheritance, safety checks, build isolation, reports, exclusions, and archive audits.
+- `tests/` covers recipe selection, inheritance, safety checks, build isolation, reports, exclusions, archive audits, and Fabric dependency evidence.
 - `deploy/targets/` is reserved for settings that differ between the [main and creative servers](deploy/README.md). No differences have been confirmed yet.
 - `docs/` covers [Packwiz tooling](docs/tooling.md), [coordinated upgrades and manual rollback](docs/upgrades.md), and [syncing local client data](docs/local-sync.md).
 

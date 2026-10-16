@@ -19,6 +19,7 @@ This project does not currently declare a Semantic Versioning policy.
 - Add offline pack integrity checks and read-only Minecraft/Fabric/mod candidate reports. Version application remains unimplemented; temporary global mod exclusions preview a diff and require interactive confirmation while retaining pins.
 - Add read-only CI checks, four draft exports, archive audits, checksums, and seven-day candidate artifacts, without publishing or deployment.
 - Document coordinated upgrades, recommended final testing, and manual rollback using retained pack archives and Bloom backups.
+- Add read-only dependency audits of locally supplied, hash-verified pinned JARs, including nested Fabric candidates, aliases, side filtering and version predicates. Missing evidence and resolver choices remain unknown; no downloads, pin changes or release approval.
 
 ### Changed
 

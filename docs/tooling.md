@@ -42,6 +42,10 @@ Run `uv run --script scripts/validate_pack.py` for offline source/index/profile 
 `scripts/upgrade_pack.py report` assesses chosen targets without changing pins;
 `disable`/`enable` preview and confirm global exclusions in `build/disabled-mods.toml`.
 The version `apply` command is intentionally unimplemented and refuses changes.
+`scripts/audit_dependencies.py PROFILE --jars DIRECTORY --java 21` reads detached pinned
+JARs without downloads or execution. It inventories nested Fabric providers and checks
+supported metadata constraints, leaving resolver choices unknown. See the
+[local JAR audit](upgrades.md#audit-locally-supplied-jars) for layout, target overrides and limits.
 See the [upgrade guide commands](upgrades.md#commands) for examples and coverage.
 Implementation progress and remaining work are in the
 [maintenance work record](../todo/work/002-pack-maintenance/README.md).
