@@ -1,5 +1,6 @@
 ---
 status: in_progress
+pr: https://github.com/jd-santos/blockery/pull/4
 ---
 
 # Coordinated pack maintenance
@@ -83,8 +84,8 @@ documentation, and this workbench. Only the parent launches reviewers or other a
   fixtures and rerun local validation.
 - [x] Complete the affected correctness follow-up, resolve its timestamp/dependency-type
   notes, and rerun local validation.
-- [ ] Commit the reviewed foundation with SSH signing and open a topic-branch PR if ready.
-  Keep the unfinished implementation slices below in the live queue. [context: small]
+- [x] Commit the reviewed foundation with SSH signing and open a topic-branch PR.
+  The unfinished implementation slices below remain in the live queue.
 - [ ] Finish downloaded-JAR/nested-provider/Fabric version-constraint checks and optional
   availability queries for disabled entries. The first report checks Modrinth required
   dependency references, not full closure. [context: medium]
@@ -113,8 +114,8 @@ Survival archive retains SHA-256 `c0d7bce2204c8abb04abe67a9339b92f0fb53a806c13ea
 Fresh active LSP probes report no diagnostics for the six changed Python source/test paths.
 All four retained draft exports were audited again without overwriting archives or reports.
 The pinned Packwiz binary matches the documented revision/checksum, and the four action
-pins match their upstream tags. GitHub Actions execution and client/server runtime testing
-are not claimed. Initial correctness/design reviews and the affected correctness follow-up
+pins match their upstream tags. PR #4's initial `validate` check was queued when inspected;
+GitHub Actions success and client/server runtime testing are not claimed. Initial correctness/design reviews and the affected correctness follow-up
 completed. All accepted findings are resolved with regression coverage; see review progress.
 Existing client release checks remain open in the [migration record](../001-bloom-migration/README.md).
 The [upgrade guide](../../../docs/upgrades.md) owns operator instructions; this record owns
@@ -122,13 +123,16 @@ execution progress and remaining implementation scope.
 
 ## Handoff for a new session
 
-The earlier handoff was prepared at ~17% context. The resumed session completed review and
-fixes. Finish delivery of the bounded foundation, not the deferred apply engine.
+Handoff prepared at ~56% context. The reviewed foundation is committed and pushed in
+[PR #4](https://github.com/jd-santos/blockery/pull/4). Check its final CI result before
+considering merge. Do not infer release or deployment from this delivery. The unchecked
+work above defines the remaining bounded implementation packets.
 
 ### Checkout and authority
 
 - Branch: `pack-maintenance`, based on `5565f694157a1c9479feb8ce85bacce457621700`
-  (merged client-split PR #3). Maintenance changes are uncommitted; no maintenance PR exists.
+  (merged client-split PR #3). Foundation commit: `6cd0e1b` (SSH-signed), pushed to
+  `origin/pack-maintenance`. [PR #4](https://github.com/jd-santos/blockery/pull/4) is open.
 - The owner authorized committing ready work and shipping through a topic-branch PR if
   appropriate. The current request resumes the bounded foundation review and delivery.
 - Do not upgrade pins, activate exclusions, clear release gates, publish packs, deploy,
@@ -195,10 +199,12 @@ be committed. Verify canonical pack/index, pins, configs, and recipe selections 
 unchanged against the base. GitHub Actions has not run this new workflow, and no new
 Minecraft runtime or gameplay validation is claimed.
 
-Once reviews and checks pass, load `repo-commit`, `commit-message-writer`, and `ship`.
-Verify public visibility with `gh repo view --json isPrivate`, inspect an explicit staged
-file list for sensitive or unrelated content, make a signed commit, and push/open a PR only
-for the ready foundation. Update this record with actual review and PR evidence. Keep the
-parent task open for the deferred slices; do not mark the whole maintenance effort complete.
-Inspect the PR's actual checks after opening it, and distinguish pending CI from passed CI.
-Client Prism checks, Axiom authorization, Modrinth moderation, and deployment remain separate.
+The parent verified public visibility, reviewed an explicit 17-file staged set, created
+SSH-signed commit `6cd0e1b`, pushed the topic branch and opened PR #4. Only unrelated
+`research.md` remains untracked. Local artifacts and user-wide provider settings are not
+part of the PR. The initial CI run is
+[38974684551](https://github.com/jd-santos/blockery/actions/runs/38974684551), queued at
+inspection; later task-record updates can supersede it. Check the PR's current head checks,
+not only that initial run. The parent task stays open for the deferred slices. No merge,
+release, host changes or artifact deletion is authorized. Client Prism checks, Axiom
+authorization, Modrinth moderation and deployment remain separate.
