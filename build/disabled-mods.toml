@@ -1,0 +1,4 @@
+# Reversible global exclusions. Keep metadata and pins in their original locations.
+# Use the confirmed disable/enable commands in scripts/upgrade_pack.py.
+# Example: "mods/example.pw.toml" = "Waiting for target Minecraft support"
+[disabled]

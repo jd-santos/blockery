@@ -16,6 +16,9 @@ This project does not currently declare a Semantic Versioning policy.
 - Pin server-only Fabric Permissions API 0.5.0 to resolve WorldEdit's permissions integration warning.
 - Include GPL text, scoped third-party notices, and a source link in every recipe export.
 - Add client-only Inventory Profiles Next 2.2.4 and EMF 3.3.12 to Blockery Extras Client, using the existing libIPN, Kotlin, and ETF dependencies.
+- Add offline pack integrity checks and read-only Minecraft/Fabric/mod candidate reports. Version application remains unimplemented; temporary global mod exclusions preview a diff and require interactive confirmation while retaining pins.
+- Add read-only CI checks, four draft exports, archive audits, checksums, and seven-day candidate artifacts, without publishing or deployment.
+- Document coordinated upgrades, recommended final testing, and manual rollback using retained pack archives and Bloom backups.
 
 ### Changed
 

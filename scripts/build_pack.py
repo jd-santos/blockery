@@ -122,8 +122,34 @@ def resolve_profile(recipes, slug, ancestors=()):
     return result
 
 
+def disabled_mods(root):
+    """Read reversible global exclusions without removing their pinned metadata."""
+    policy = root / "build/disabled-mods.toml"
+    if not policy.exists() and not policy.is_symlink():
+        return {}
+    data = tomllib.loads(source_path(root, "build/disabled-mods.toml").read_text())
+    if set(data) != {"disabled"} or not isinstance(data["disabled"], dict):
+        raise BuildError("Expected only a [disabled] table in build/disabled-mods.toml")
+    selected = set()
+    recipes = read_recipes(root)
+    for slug in recipes:
+        selected.update(resolve_profile(recipes, slug)["mods"])
+    for value, reason in data["disabled"].items():
+        relative = safe_path(value)
+        if relative.parts[0] not in {"mods", "resourcepacks"} or not value.endswith(".pw.toml"):
+            raise BuildError(f"Disabled entry must be mod/resource-pack metadata: {value}")
+        source_path(root, value)
+        if value not in selected:
+            raise BuildError(f"Disabled entry is not selected by any recipe: {value}")
+        if not isinstance(reason, str) or not reason.strip():
+            raise BuildError(f"Disabled entry needs a nonempty reason: {value}")
+    return data["disabled"]
+
+
 def plan(root, slug):
     profile = resolve_profile(read_recipes(root), slug)
+    disabled = disabled_mods(root)
+    profile["disabled"] = {value: disabled[value] for value in profile["mods"] if value in disabled}
     destinations = set()
     selected = []
     for value in profile["mods"]:
@@ -140,6 +166,8 @@ def plan(root, slug):
         if side not in {"both", profile["side"]}:
             raise BuildError(f"{slug}: incompatible {side} metadata: {value}")
         filename = safe_path(data.get("filename"))
+        if value in disabled:
+            continue
         destination = relative.parent / filename
         if str(destination) in destinations:
             raise BuildError(f"Duplicate installed path: {destination}")
@@ -249,8 +277,10 @@ def main():
         if args.command == "list":
             recipes = read_recipes(ROOT)
             for slug in recipes:
-                profile = resolve_profile(recipes, slug)
+                profile = plan(ROOT, slug)
                 print(f"{slug}: {profile['side']}, {len(profile['mods'])} metadata files")
+                for value, reason in profile["disabled"].items():
+                    print(f"  disabled: {value}: {reason}")
                 for reason in profile["pending"]:
                     print(f"  pending: {reason}")
         elif args.command == "plan":
