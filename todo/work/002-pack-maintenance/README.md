@@ -48,10 +48,13 @@ pins. Add small CI checks and draft artifacts without automating live updates.
 
 ## Ownership
 
-Work is on `pack-maintenance`; the parent is the sole repository writer. The CI worker
-supplied a read-only workflow/archive-audit proposal from an isolated worktree. The parent
-applied and strengthened it, implemented the upgrade foundation, and owns validation,
-documentation, and this workbench. Only the parent launches reviewers or other agents.
+The foundation merged in [PR #4](https://github.com/jd-santos/blockery/pull/4), with
+[successful CI](https://github.com/jd-santos/blockery/actions/runs/38974744441).
+The current dependency-audit slice is on `dependency-audit`, based on merged `origin/main`.
+The parent is the sole repository writer; read-only correctness and design reviews
+are complete, with final small corrections validated by the parent. Other worktrees and unrelated `research.md`
+remain untouched. No pin changes, live-instance access, downloads, or deployment are
+part of this slice.
 
 ## Acceptance criteria
 
@@ -86,9 +89,15 @@ documentation, and this workbench. Only the parent launches reviewers or other a
   notes, and rerun local validation.
 - [x] Commit the reviewed foundation with SSH signing and open a topic-branch PR.
   The unfinished implementation slices below remain in the live queue.
-- [ ] Finish downloaded-JAR/nested-provider/Fabric version-constraint checks and optional
-  availability queries for disabled entries. The first report checks Modrinth required
-  dependency references, not full closure. [context: medium]
+- [x] Add a read-only audit of locally supplied, hash-verified pinned JARs per recipe.
+  - [x] Inspect Fabric schema-v1 metadata and recursively declared nested JARs without extraction.
+  - [x] Evaluate required dependencies, breaks and warning-only constraints against active
+    providers, aliases and explicit platform versions; preserve unknowns for resolver choices.
+  - [x] Bound archive reads and reject unsafe paths, symlinks, malformed metadata and hash mismatches.
+  - [x] Add fixtures for version predicates, nested/alias ambiguity, side filtering and read-only safety.
+  - [x] Update maintained docs; run tests/static/source checks and correctness/design reviews.
+- [ ] Extend audits to candidate downloads/plans and full resolver selection where needed;
+  optionally query availability for disabled entries without re-enabling them. [context: medium]
 - [ ] Implement confirmation-gated application of Minecraft/Loader/mod candidates with
   stale-input rejection and preserved disabled pins. The current `apply` stub refuses
   changes; assessment alone never upgrades source or a live instance. [context: medium]
@@ -100,7 +109,93 @@ documentation, and this workbench. Only the parent launches reviewers or other a
 - [ ] Consider a repository-local agent skill after the maintained upgrade procedure and CLI
   have settled. A skill should reference the procedure, not duplicate or replace it. [context: small]
 
-## Validation
+## Dependency-audit slice
+
+`scripts/audit_dependencies.py PROFILE --jars DIRECTORY --java VERSION` reads selected pinned
+mod filenames directly under a detached local directory. It does not fetch missing artifacts
+or inspect a live instance. Platform overrides assess the same current pins against explicit
+targets, not online candidate downloads. Canonical inputs and release gates are unchanged.
+See [the maintained command reference](../../../docs/upgrades.md#audit-locally-supplied-jars).
+
+Nested candidates and aliases have source provenance. Nested dependencies are conditional;
+competing providers, unsupported evidence and incomplete inventories remain unknown. This
+is an evidence audit, not a general solver. Archive, metadata, nesting, candidate, constraint,
+alias and repeated-provider limits bound reads and report growth. Only schema v1 and the
+documented subset of Fabric 0.19.5 predicates are claimed. Unsupported forms fail closed.
+
+Local validation currently passes 75 tests (26 new), Ruff and fresh CLI Pyright. Active LSP
+probes surfaced stale newly-created-module imports, contradicted by fresh Pyright and
+executable imports/tests, plus regex-guarded numeric conversion warnings. Those were marked
+false-positive with reasons, not hidden by source ignore comments.
+
+A read-only run against retained `local/audit/jars` verifies all 30 pinned server JARs for
+each server recipe and inventories 136 candidates each, including nested candidates. Neither
+server report has a demonstrated hard violation; both remain unknown due resolver choices.
+The client/Extras inventories have seven/18 missing pinned JARs respectively and remain
+unknown, not compatible. No missing artifacts were downloaded and no retained file/report
+was overwritten. This inventory run did not push, open a PR or execute Minecraft.
+
+### Audit review dispositions
+
+Design review `e9f7367c-e556-43bf-ba49-32ed6bb2c15e` found no issues (OK with notes).
+Correctness review `9166c597-615b-45b7-9724-36026c102f35` raised two findings:
+
+- Accepted: ZIP entry limits were enforced after `ZipFile` allocated the central-directory
+  objects. A bounded preflight now counts actual central records before constructing
+  `ZipFile`, validates ordinary single-disk layout, and rejects unsupported ZIP64 directory
+  or prefixed/trailing layouts. Fixtures assert `ZipFile` is never called for oversized
+  directories, forged small counts, malformed records and unsupported layouts.
+- Invalid: rejecting build punctuation such as `10+!` would contradict
+  [Loader 0.19.5's parser](https://github.com/FabricMC/fabric-loader/blob/0.19.5/src/main/java/net/fabricmc/loader/impl/util/version/SemanticVersionImpl.java).
+  Its class contract explicitly permits arbitrary build contents; the constructor stores
+  everything after the first `+`, and comparisons ignore it. Added audit-level fixtures for
+  punctuation, empty and repeated-dot build suffixes, alongside an invalid-prerelease case.
+  This is Fabric's extended grammar, not strict SemVer build validation.
+
+All 75 fixtures and static/source checks pass after the preflight fix. The retained-JAR
+inventory counts are unchanged. No second design round is needed. Deferred implementation
+packets remain in the work list.
+
+### Correctness follow-up and readiness
+
+The owner authorized a Herdr fallback after native background review failed before startup
+because the Pi host could not resolve `@earendil-works/chord` and its `context` subpath.
+Failed runs `7cbca1de-1b84-43bb-9885-6c392d43bf23` and
+`41e0d08a-6e36-402f-ae61-c31ae9204e9f` produced no review evidence; the original reviewer
+was unavailable for resume. No host installation repair was attempted.
+
+The owner supplied the completed read-only Luna follow-up from Herdr reviewer
+`blockery-audit-review` (session `01a146fe-6dda-7782-b079-1636dd0b2c42`). It confirmed
+that the allocation fix is sound on inspection and the `10+!` objection is invalid.
+It identified one remaining layout check: central records could declare a nonzero
+starting disk even with ordinary end-record disk fields. The parent added rejection of
+nonzero per-entry disk starts before allocation, with disk-one and ZIP64-sentinel fixtures
+that assert `ZipFile` is not called. The conservative whitespace build-suffix limitation
+is now documented and covered by an audit fixture returning unknown. These small final
+corrections were parent-validated, not independently re-reviewed. The agreed follow-up
+round is complete; no broader hardening or additional review round is planned.
+
+Fresh validation after those corrections passes all 75 tests, offline Ruff (including
+an explicit import-order check) and fresh offline CLI Pyright for the three added Python
+files, source validation for 106 indexed files/four profiles, and `git diff --check`.
+Active LSP probes show no unsuppressed findings, with two files confirmed clean and one
+inconclusive; five existing dispositions remain suppressed. Fresh CLI checks pass despite
+an edit-time stale import-order warning. The reviewer inspected code/fixtures/docs but
+did not run checks or fetch the linked Fabric source; execution evidence is the parent's.
+The earlier stalled batch was aborted and replaced by individual bounded checks.
+
+The audit slice has no known remaining blocker. SSH-signed commit `6127ce8` on
+`dependency-audit`, based on `cebe72c`, contains the three Python files and five related
+documentation/work-record files. The owner authorized pushing this topic branch.
+The [quick client playtest](../../../docs/playtest.md) prioritizes a 10–15 minute check
+of launch, joining, controls, voice and rejoining. It is not a push prerequisite for
+this tooling-only slice and does not clear client release gates. Canonical pack/index,
+metadata, configs, recipes, disable policy and Packwiz exclusions have no diff. Unrelated
+`research.md`, other worktrees and retained artifacts remain untouched. No push, runtime
+test, publication or deployment is claimed. Deferred candidate-download/resolver/application
+work remains in the work list; remote delivery is a separate step.
+
+## Foundation validation
 
 The integrated first slice passes 49 fixture tests and fresh Ruff/Pyright checks after
 review fixes. Offline validation checks 106 indexed files and all four recipes. The prior
@@ -114,14 +209,18 @@ Survival archive retains SHA-256 `c0d7bce2204c8abb04abe67a9339b92f0fb53a806c13ea
 Fresh active LSP probes report no diagnostics for the six changed Python source/test paths.
 All four retained draft exports were audited again without overwriting archives or reports.
 The pinned Packwiz binary matches the documented revision/checksum, and the four action
-pins match their upstream tags. PR #4's initial `validate` check was queued when inspected;
-GitHub Actions success and client/server runtime testing are not claimed. Initial correctness/design reviews and the affected correctness follow-up
+pins match their upstream tags. The final PR #4 `validate` check passed on head `0d32e38`,
+verified at entry to the dependency-audit slice. Client/server runtime testing is not claimed.
+Initial correctness/design reviews and the affected correctness follow-up
 completed. All accepted findings are resolved with regression coverage; see review progress.
 Existing client release checks remain open in the [migration record](../001-bloom-migration/README.md).
 The [upgrade guide](../../../docs/upgrades.md) owns operator instructions; this record owns
 execution progress and remaining implementation scope.
 
-## Handoff for a new session
+## Foundation handoff (retained historical evidence)
+
+The instructions below describe the completed foundation session, not the current audit
+slice. PR #4 is now merged with passing CI. Current scope and execution steps are above.
 
 Handoff prepared at ~56% context. The reviewed foundation is committed and pushed in
 [PR #4](https://github.com/jd-santos/blockery/pull/4). Check its final CI result before
