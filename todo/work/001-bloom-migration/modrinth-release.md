@@ -18,7 +18,7 @@ Client pack publication is deferred.
 | Java | 21 or newer |
 | Categories | Select accurate server-pack categories offered by the editor, such as lightweight and vanilla-like if available. |
 | License | `GPL-3.0-or-later` for original Blockery material. All third-party works, including Axiom, retain their own terms. |
-| Source | This repository; use its public GitHub URL in the listing. |
+| Source | Use the public, version-pinned source URL in the version notes below; it includes the matching license, recipes, and build inputs even before the PR merges. |
 | Initial version | `2026.10.12`, confirmed by the owner; non-draft candidate built and locally verified |
 | Release channel | Release, as requested by the owner; no beta label |
 | Content disclosure | Enable **Contains AI-generated content**. The description below explains the assistance with Packwiz configuration, tooling, deployment preparation, and writing. |
@@ -118,6 +118,8 @@ build process; the version notes identify the matching source revision.
 - Configure No Chat Reports to convert chat to game messages without requiring the client mod.
 - Include GPL-3.0-or-later text, scoped third-party notices, and the source repository link.
 
+Source revision: [`3f72b0f5ecc7869e8939cf32bec9b394fc7d9c4f`](https://github.com/jd-santos/blockery/tree/3f72b0f5ecc7869e8939cf32bec9b394fc7d9c4f).
+
 Only use this changelog if the final candidate retains these selections and passes its
 own final checks. Do not describe the project-wide `Unreleased` notes, which also cover
 client/build work, as this server version's changelog.
@@ -191,10 +193,13 @@ no blockers. Reviewers inspected source/docs and permitted JSON summaries; archi
 and server validation came from the parent. Additional output-symlink test cases and client
 credit-list wording were non-blocking suggestions, deferred to their relevant future scope.
 
-The source link is not proof that the matching source revision is already public. Before
-publishing, deliver the matching GPL-covered source revision and identify it in the version
-notes. Local commits alone do not do that; Git push/PR and Modrinth upload remain separately
-authorized operations.
+The matching source revision is now public at
+[`3f72b0f5ecc7869e8939cf32bec9b394fc7d9c4f`](https://github.com/jd-santos/blockery/tree/3f72b0f5ecc7869e8939cf32bec9b394fc7d9c4f).
+The authorized source push published the reviewed build inputs, license, and notices.
+Unauthenticated GitHub access to the commit, license, and recipes was verified, and all
+artifact source inputs match that revision byte for byte. Use the full revision link in
+version notes, not only the repository homepage. This source delivery does not publish
+the Modrinth artifact or authorize Bloom deployment.
 
 The owner confirmed that an Axiom multiplayer whitelist still needs to be requested.
 That is not a publication blocker for the verified Modrinth-hosted Axiom file reference;
@@ -240,9 +245,10 @@ the separate player check is owner-confirmed on the byte-identical licensed draf
 Evidence is in `smoke-summary.json` and `restart-summary.json`. All 18 unit tests pass,
 including normal-version/source-preservation and remaining-profile gate checks.
 
-This is an unpublished release candidate, not a Bloom deployment. Matching public source
-delivery, publication authorization/moderation, Axiom private-multiplayer authorization,
-and Bloom-specific install/update/rollback/migration checks remain separate work.
+This is an unpublished Modrinth release candidate, not a Bloom deployment. Matching
+source delivery is verified above. Modrinth publication authorization/moderation, Axiom
+private-multiplayer authorization, and Bloom-specific install/update/rollback/migration
+checks remain separate work.
 
 ## Submission workflow (not executed)
 
@@ -253,9 +259,10 @@ The initial project becomes public after approval. Later versions of an approved
 generally do not require another project approval, but unknown external content can still
 be withheld pending permission information. Review times fluctuate; do not promise a date.
 
-1. Publish the matching source revision to GitHub after separate push authorization.
-   Add its full commit SHA and `https://github.com/jd-santos/blockery/tree/COMMIT_SHA`
-   to the version notes, replacing the placeholder with the verified published revision.
+1. Use the verified public source revision already linked in the version notes above.
+   Source delivery is complete; preserve the exact commit link when copying those notes
+   into Modrinth. The source is on the public topic branch and does not require a PR merge
+   to be accessible.
 2. Create a Modrinth **modpack** project draft using the fields and description above,
    not a joinable Server Project. Verify the available slug, accurate server-side
    environment, and editor categories. Enable **Contains AI-generated content** and retain
@@ -279,9 +286,9 @@ be withheld pending permission information. Review times fluctuate; do not promi
    URL for later pinned Bloom launcher preparation. Approval does not authorize Bloom
    deployment, updater adoption, or world migration.
 
-No draft creation, upload, submission, push, or publication has been performed by this
-preparation step. The operator uses their own authenticated UI; no credentials are needed
-in this repository or shared with the agent.
+The source has been pushed to GitHub. No Modrinth draft creation, upload, submission,
+or artifact publication has been performed. The operator uses their own authenticated
+Modrinth UI; no credentials are needed in this repository or shared with the agent.
 
 ## Configuration permission disclosure
 

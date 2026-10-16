@@ -1,5 +1,6 @@
 ---
 status: in_progress
+pr: https://github.com/jd-santos/blockery/pull/2
 ---
 
 # Bloom migration and remote updates
@@ -227,7 +228,7 @@ separately because file backups do not establish preservation of panel settings.
   - [x] Include exact GPL text, scoped third-party notices, and a source link in the licensed Survival draft; verify archive contents and installed notice bytes.
   - [x] Run 17 unit tests, active changed-file checks, and fresh-world/pinned-restart/save-stop tests of the exact licensed Survival draft.
   - [x] Complete fresh correctness/design review of notice staging and release documentation; clarify the player-permission gate, add its inherited-gate regression assertion, and pass the single design follow-up.
-  - [ ] Deliver the matching GPL-covered source revision and identify it in version notes before publication; local commits are not public source delivery.
+  - [x] Deliver the matching GPL-covered source revision and identify it in the version notes: [`3f72b0f5ecc7869e8939cf32bec9b394fc7d9c4f`](https://github.com/jd-santos/blockery/tree/3f72b0f5ecc7869e8939cf32bec9b394fc7d9c4f). The authorized topic-branch push and unauthenticated public access are verified; all artifact source inputs match that revision. This is source delivery, not Modrinth publication.
   - [x] Confirm Axiom whitelist status: the user still needs to request it; verified Modrinth-hosted file references can be published separately from runtime authorization.
   - [ ] Obtain the Axiom whitelist or applicable license before intended private multiplayer use; do not collect private identifiers.
   - [x] Verify the approved public shared-pack boundary: 30 mod references, 11 reviewed gameplay configs, and two notices; keep target-owned infrastructure/runtime settings outside the artifact and retain their Bloom deployment review separately.
