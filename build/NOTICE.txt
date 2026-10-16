@@ -1,0 +1,72 @@
+Blockery license and third-party notices
+
+Original Blockery material: GPL-3.0-or-later
+
+Original Blockery pack definitions, build scripts, documentation, and original
+configuration contributions are free software: you may redistribute and/or
+modify them under the GNU General Public License as published by the Free
+Software Foundation, either version 3 of the License, or any later version.
+They are distributed without any warranty, including the implied warranties
+of merchantability or fitness for a particular purpose. The complete GPL v3
+text is provided alongside this notice in LICENSE.txt.
+
+Source repository: https://github.com/jd-santos/blockery
+Use the published source revision identified by the release's version notes
+for the corresponding pack definition and original configuration changes.
+The archive's modrinth.index.json records the exact downloaded mod files.
+
+Third-party material
+
+This license declaration does not relicense third-party mods, libraries,
+resource packs, generated configuration text, or other upstream material.
+They retain their own licenses, copyright notices, and usage restrictions.
+Third-party binaries are indexed downloads, not embedded in this archive.
+Upstream license and copyright notices remain with those downloads.
+
+The server selection includes the following projects. These project links
+provide author information, source links where available, and current terms;
+the exact release pins remain in the pack index and repository metadata.
+
+https://modrinth.com/mod/adventure-platform-mod
+https://modrinth.com/mod/appleskin
+https://modrinth.com/mod/architectury-api
+https://modrinth.com/mod/armor-poser
+https://modrinth.com/mod/audioplayer
+https://modrinth.com/mod/axes-are-weapons
+https://modrinth.com/mod/axiom
+https://modrinth.com/mod/better-fabric-console
+https://modrinth.com/mod/bookshelf-inspector
+https://modrinth.com/mod/cloth-config
+https://modrinth.com/mod/collective
+https://modrinth.com/mod/coord-finder
+https://modrinth.com/mod/fabric-api
+https://modrinth.com/mod/fabric-language-kotlin
+https://modrinth.com/mod/fabric-permissions-api
+https://modrinth.com/mod/fallingtree
+https://modrinth.com/mod/ferrite-core
+https://modrinth.com/mod/inhabitor
+https://modrinth.com/mod/jei
+https://modrinth.com/mod/just-mob-heads
+https://modrinth.com/mod/just-player-heads
+https://modrinth.com/mod/lithium
+https://modrinth.com/mod/no-chat-reports
+https://modrinth.com/mod/placeholder-api
+https://modrinth.com/mod/shulker-drops-two
+https://modrinth.com/mod/silence-mobs
+https://modrinth.com/mod/simple-voice-chat
+https://modrinth.com/mod/styled-chat
+https://modrinth.com/mod/view-distance-fix
+https://modrinth.com/mod/worldedit
+
+This is a server-project credit list, not an exhaustive license inventory for
+nested libraries or future client distributions. Follow their upstream terms.
+
+Axiom
+
+Axiom retains its own license and End User License Agreement. Referencing
+its Modrinth-hosted download does not grant private multiplayer whitelist
+status or a commercial license. Obtain the applicable authorization before
+using its private multiplayer or commercial features.
+
+https://modrinth.com/mod/axiom
+https://axiom.moulberry.com/eula

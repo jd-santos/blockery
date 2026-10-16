@@ -14,7 +14,8 @@ Client membership is not finalized. The `blockery` recipe has no selected mods y
 Pro preserves the existing full client selection as a draft. Both server recipes
 currently select the same 30 mod entries and 11 reviewed shared gameplay config files.
 Client drafts still omit configs. Target-specific server settings are not bundled yet.
-All four recipes have pending release checks.
+Survival's `2026.10.12` release candidate has passed local checks and can export without
+`--draft`. The other three recipes retain pending release checks. Nothing is published yet.
 
 ## Build a distribution
 
@@ -56,6 +57,17 @@ Fresh Animations is included as a resource pack, but it needs Entity Model Featu
 - `tests/` covers recipe selection, inheritance, safety checks, and build isolation.
 - `deploy/targets/` is reserved for settings that differ between the [main and creative servers](deploy/README.md). No differences have been confirmed yet.
 - `docs/` has notes on [Packwiz tooling](docs/tooling.md) and [syncing local client data](docs/local-sync.md).
+
+## License
+
+Original Blockery build scripts, pack definitions, documentation, and original configuration
+contributions are licensed under **GPL-3.0-or-later**. You may redistribute and modify that
+material under the GNU General Public License, version 3 or any later version. It is
+provided without warranty; see [LICENSE](LICENSE) for the full terms.
+
+This does not relicense third-party mods, libraries, resource packs, generated configuration
+text, or other upstream material. They retain their own terms and notices. In particular,
+Axiom retains its separate license and multiplayer/commercial-use requirements.
 
 ## Making changes
 

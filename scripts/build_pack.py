@@ -17,6 +17,10 @@ from pathlib import Path, PurePosixPath
 ROOT = Path(__file__).resolve().parents[1]
 SLUG = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*\Z")
 VERSION = re.compile(r"[A-Za-z0-9][A-Za-z0-9._+-]*\Z")
+NOTICE_SOURCES = {
+    "LICENSE": "blockery-notices/LICENSE.txt",
+    "build/NOTICE.txt": "blockery-notices/NOTICE.txt",
+}
 PRIVATE_NAMES = {
     "server.properties",
     "ops.json",
@@ -149,7 +153,10 @@ def plan(root, slug):
         if value in destinations:
             raise BuildError(f"Duplicate installed path: {value}")
         destinations.add(value)
+    for value in NOTICE_SOURCES:
+        source_path(root, value)
     profile["mods"] = selected
+    profile["notices"] = list(NOTICE_SOURCES.values())
     return profile
 
 
@@ -176,10 +183,12 @@ def stage_pack(root, stage, profile, version):
     text += f'hash = "{hashlib.sha256(empty_index.encode()).hexdigest()}"\n\n[versions]\n'
     text += "\n".join(f"{k} = {quote(v)}" for k, v in original["versions"].items())
     (stage / "pack.toml").write_text(text + "\n")
-    for value in profile["mods"] + profile["files"]:
+    sources = [(value, value) for value in profile["mods"] + profile["files"]]
+    sources.extend(NOTICE_SOURCES.items())
+    for source, value in sources:
         destination = stage / value
         destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(source_path(root, value), destination)
+        shutil.copyfile(source_path(root, source), destination)
 
 
 def build(root, slug, version, draft=False):

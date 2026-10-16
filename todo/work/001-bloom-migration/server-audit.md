@@ -9,6 +9,12 @@ Loader preflight was run with `eula=false`. After the user accepted the Minecraf
 for disposable local testing, both corrected outputs passed fresh-world startup and
 console shutdown. These stages are recorded below.
 
+The owner subsequently confirmed completion of the local gameplay/permission check and
+authorized clearing Survival's gate. The non-draft `2026.10.12` artifact passed exact
+payload, fresh-start, pinned-restart, and save/stop checks. Current evidence and remaining
+publication/deployment limits are in [release preparation](modrinth-release.md#non-draft-candidate).
+The older test sections below retain their original no-player limits.
+
 The initial 29 pinned Modrinth version records declare Minecraft 1.21.10 and Fabric support.
 Each selected download URL and SHA-512 matched its exact version record. Downloaded
 JARs were hash-verified before reading their `fabric.mod.json` metadata and recursively
@@ -91,11 +97,9 @@ read in this audit.
    do not copy all root configs or import private live configuration.
 2. Review target networking, upload/storage paths, WorldEdit permissions, and chat
    integration requirements. Local-only test settings are not deployment settings.
-3. Test actual player gameplay and operator/non-operator permissions in disposable local
-   sessions, including armor stand resizing. Startup is not proof of feature behavior.
-4. Verify installer helper pinning, repeat pinned starts, deliberate updates, lock/removal
+3. Verify installer helper pinning, remote pinned starts, deliberate updates, lock/removal
    semantics, protected custom runtime paths, download failures, and backup/rollback.
-5. Obtain publication/deployment authorization separately. Test the Bloom environment
+4. Obtain publication/deployment authorization separately. Test the Bloom environment
    before considering private world migration or cutover.
 
 The user confirmed the Pro draft Prism smoke test looks good. It does not satisfy any

@@ -20,6 +20,8 @@ class BuildTests(unittest.TestCase):
         (self.root / "build").mkdir()
         (self.root / "mods").mkdir()
         (self.root / "config").mkdir()
+        (self.root / "LICENSE").write_text("Fixture license text\n")
+        (self.root / "build/NOTICE.txt").write_text("Fixture scoped notice\n")
         (self.root / "pack.toml").write_text(
             'name = "Source Pack"\nversion = "unreleased"\npack-format = "packwiz:1.1.0"\n'
             '[index]\nfile = "index.toml"\nhash-format = "sha256"\nhash = "original"\n'
@@ -91,6 +93,20 @@ class BuildTests(unittest.TestCase):
             with self.subTest(path=value), self.assertRaises(builder.BuildError):
                 builder.safe_path(value)
 
+    def test_notice_sources_are_required_and_reject_symlinks(self):
+        for value in builder.NOTICE_SOURCES:
+            with self.subTest(source=value):
+                source = self.root / value
+                text = source.read_text()
+                source.unlink()
+                with self.assertRaisesRegex(builder.BuildError, "Missing source"):
+                    builder.plan(self.root, "pro")
+                source.symlink_to(self.root / "config/shared.json")
+                with self.assertRaisesRegex(builder.BuildError, "symlinks"):
+                    builder.plan(self.root, "pro")
+                source.unlink()
+                source.write_text(text)
+
     def test_missing_sources_and_source_symlinks(self):
         with self.assertRaisesRegex(builder.BuildError, "Missing source"):
             builder.source_path(self.root, "config/missing.json")
@@ -137,6 +153,9 @@ class BuildTests(unittest.TestCase):
     def fake_packwiz(self, command, cwd, check):
         self.assertTrue(check)
         if command[1] == "refresh":
+            for source, destination in builder.NOTICE_SOURCES.items():
+                self.assertEqual((cwd / destination).read_bytes(),
+                                 (self.root / source).read_bytes())
             self.assertFalse((cwd / "config/unselected.json").exists())
             self.assertFalse((cwd / "build").exists())
             self.assertFalse((cwd / "mods/server.pw.toml").exists())
@@ -163,6 +182,38 @@ class BuildTests(unittest.TestCase):
             with self.assertRaisesRegex(builder.BuildError, "already exists"):
                 builder.build(self.root, "pro", "preview", draft=True)
             self.assertEqual(run.call_count, 2)
+        self.assertEqual(before, self.snapshot())
+
+    def test_normal_release_preserves_version_and_sources(self):
+        self.recipes(
+            '[profiles.base]\nname = "Base"\nside = "client"\n'
+            'mods = ["mods/shared.pw.toml"]\nfiles = ["config/shared.json"]\n'
+            'pending = []\n'
+        )
+        before = self.snapshot()
+
+        def export(command, cwd, check):
+            self.assertTrue(check)
+            staged = tomllib.loads((cwd / "pack.toml").read_text())
+            self.assertEqual(staged["version"], "2026.10.12")
+            if command[1] == "modrinth":
+                with zipfile.ZipFile(command[4], "w") as archive:
+                    archive.writestr(
+                        "modrinth.index.json", json.dumps({"versionId": staged["version"]})
+                    )
+
+        with (
+            patch.object(builder.shutil, "which", return_value="/fixture/packwiz"),
+            patch.object(builder.subprocess, "run", side_effect=export) as run,
+        ):
+            result = builder.build(self.root, "base", "2026.10.12")
+            self.assertEqual(result.name, "base-2026.10.12.mrpack")
+            self.assertEqual(run.call_count, 2)
+            with zipfile.ZipFile(result) as archive:
+                self.assertEqual(
+                    json.loads(archive.read("modrinth.index.json"))["versionId"],
+                    "2026.10.12",
+                )
         self.assertEqual(before, self.snapshot())
 
     def test_copy_failure_or_interrupt_removes_partial_export_and_allows_retry(self):
@@ -240,6 +291,22 @@ class RepositoryProfileTests(unittest.TestCase):
                 self.assertTrue(armor["general"]["restrictResizeToOP"])
         self.assertEqual(builder.plan(self.root, "blockery-pro")["files"], [])
 
+    def test_all_nonempty_profiles_stage_exact_license_notices(self):
+        for slug in ("blockery-pro", "blockery-server-survival", "blockery-server-creative"):
+            with self.subTest(profile=slug), tempfile.TemporaryDirectory() as temp:
+                profile = builder.plan(self.root, slug)
+                self.assertEqual(profile["notices"], list(builder.NOTICE_SOURCES.values()))
+                stage = Path(temp)
+                builder.stage_pack(self.root, stage, profile, "notice-preview-draft")
+                actual = {str(p.relative_to(stage))
+                          for p in (stage / "blockery-notices").rglob("*") if p.is_file()}
+                self.assertEqual(actual, set(builder.NOTICE_SOURCES.values()))
+                for source, destination in builder.NOTICE_SOURCES.items():
+                    self.assertEqual((stage / destination).read_bytes(),
+                                     (self.root / source).read_bytes())
+                self.assertFalse((stage / "LICENSE").exists())
+                self.assertFalse((stage / "build").exists())
+
     def test_permissions_dependency_is_selected_only_by_server_profiles(self):
         path = "mods/fabric-permissions-api.pw.toml"
         metadata = tomllib.loads((self.root / path).read_text())
@@ -251,11 +318,17 @@ class RepositoryProfileTests(unittest.TestCase):
             with self.subTest(profile=slug):
                 self.assertNotIn(path, builder.plan(self.root, slug)["mods"])
 
-    def test_server_releases_remain_blocked(self):
-        for slug in ("blockery-server-survival", "blockery-server-creative"):
+    def test_survival_ready_and_unresolved_profiles_remain_blocked(self):
+        self.assertEqual(builder.plan(self.root, "blockery-server-survival")["pending"], [])
+        self.assertEqual(
+            builder.plan(self.root, "blockery-server-creative")["pending"],
+            ["Review creative target differences before release."],
+        )
+        for slug in ("blockery", "blockery-pro", "blockery-server-creative"):
             with self.subTest(profile=slug), patch.object(builder.subprocess, "run") as run:
+                self.assertTrue(builder.plan(self.root, slug)["pending"])
                 with self.assertRaisesRegex(builder.BuildError, "Release blocked"):
-                    builder.build(self.root, slug, "1.0.0")
+                    builder.build(self.root, slug, "2026.10.12")
                 run.assert_not_called()
 
 

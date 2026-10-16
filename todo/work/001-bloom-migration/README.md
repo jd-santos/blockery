@@ -22,6 +22,15 @@ is introduced.
   matching `pack.toml`. The older sandbox JAR filename is not proof of the running version.
   Confirm actual startup output before migrating worlds.
 - Prefer a hosted pack and updater over manually uploading a complete instance.
+- Prepare Blockery Server Survival for Modrinth first, for use with Bloom. Minimal and
+  Pro client release preparation can wait. The user approved preparing the listing and
+  distribution review, not uploading, configuring Bloom, or migrating runtime state.
+  Draft copy and publication evidence are in [Modrinth release preparation](modrinth-release.md).
+- Describe the pack's intended audience as a small, private, whitelisted friends-and-family
+  server, not a public server listing. The artifact does not enforce or include a whitelist.
+  Disclose AI assistance with Packwiz configuration, Python tooling/tests, dependency checks,
+  deployment preparation, and writing, including the required Modrinth content-disclosure
+  setting. Do not imply that hosted migration has happened or that AI created the upstream mods.
 - The existing Blockery distribution is the player-facing client pack. Server deployment
   artifacts/configuration are distinct outputs, potentially one each for survival and
   creative. Do not label the current combined validation export a finished server release.
@@ -54,8 +63,11 @@ is introduced.
 
 The current pack has 46 mod entries: 26 marked `both`, 16 marked `client`, and 4 marked
 `server`. Both server recipes select 30 entries and 11 reviewed gameplay config files.
-Local fresh-world startup and console shutdown passed for both exact server drafts;
-player-facing gameplay/permission behavior and deployment validation remain open.
+Local fresh-world startup and console shutdown passed for both exact server drafts.
+The owner confirmed completion of the linked local player check and authorized clearing
+Survival's gate. The non-draft `2026.10.12` Survival candidate passed exact payload,
+fresh-start, pinned-restart, and save/stop checks; see [release evidence](modrinth-release.md#non-draft-candidate).
+Deployment validation remains open.
 
 The selected entries are AppleSkin, Architectury API, Armor Poser, AudioPlayer,
 Axes Are Weapons, Axiom, Bookshelf Inspector, Cloth Config API, Collective,
@@ -201,13 +213,30 @@ separately because file backups do not establish preservation of panel settings.
   - [x] Install the exact survival draft locally and confirm Minecraft/Loader pins at the EULA gate, without accepting the EULA or creating a world.
   - [x] Resolve WorldEdit's undocumented Permissions API `>=0.5.0` integration requirement with an explicit 0.5.0 server pin and repeat initialization.
   - [x] Obtain Minecraft EULA acceptance for the disposable local test and verify fresh-world startup and graceful shutdown for both exact server drafts.
-  - [ ] Verify player-facing gameplay and operator/non-operator permissions with a disposable local client session.
+  - [x] Verify player-facing gameplay and operator/non-operator permissions using the [local player check](modrinth-release.md#local-player-check); owner-confirmed completion and authorization to clear the gate, not independently observed by the agent.
 - [ ] Establish client/server output conventions and client profile boundaries before
   release cleanup. Keep the player-facing Blockery identity separate from server
   deployment releases; settle default/full/minimal client scope and visibility.
-- [ ] Prepare a publishable pack: choose a release version instead of `unreleased`, review
-  the 56 shared override files for intended distribution and client/server placement, verify
-  content permissions, and test the exact candidate in a clean client and local server.
+- [ ] Prepare the Survival server release first; retain client release/config review as deferred work.
+  - [x] Draft project fields, description, and server-specific version changelog in [Modrinth release preparation](modrinth-release.md).
+  - [x] Revise the public copy for the private whitelisted audience, add specific AI-assistance disclosure and No Chat Reports behavior, and keep internal test provenance in the evidence sections rather than the listing.
+  - [ ] Verify the actual Modrinth editor's server-side environment, AI content-disclosure setting, all 30 version dependencies, and Permissions results before submission; prepared copy does not verify account-side fields.
+  - [x] Verify all 30 exact Modrinth-hosted downloads against the tested survival archive and confirm its 11 selected overrides with no bundled JARs/resource packs.
+  - [x] Record GPL for original Blockery material, third-party terms for all third-party works including Axiom, and a normal release channel without a beta label.
+  - [x] Confirm GPL-3.0-or-later and initial version `2026.10.12`, and add the scoped repository license declaration.
+  - [x] Include exact GPL text, scoped third-party notices, and a source link in the licensed Survival draft; verify archive contents and installed notice bytes.
+  - [x] Run 17 unit tests, active changed-file checks, and fresh-world/pinned-restart/save-stop tests of the exact licensed Survival draft.
+  - [x] Complete fresh correctness/design review of notice staging and release documentation; clarify the player-permission gate, add its inherited-gate regression assertion, and pass the single design follow-up.
+  - [ ] Deliver the matching GPL-covered source revision and identify it in version notes before publication; local commits are not public source delivery.
+  - [x] Confirm Axiom whitelist status: the user still needs to request it; verified Modrinth-hosted file references can be published separately from runtime authorization.
+  - [ ] Obtain the Axiom whitelist or applicable license before intended private multiplayer use; do not collect private identifiers.
+  - [x] Verify the approved public shared-pack boundary: 30 mod references, 11 reviewed gameplay configs, and two notices; keep target-owned infrastructure/runtime settings outside the artifact and retain their Bloom deployment review separately.
+  - [x] Prepare ordinary configuration-override disclosure and upstream permission evidence for Modrinth review without claiming a blanket config exemption.
+  - [ ] Address any configuration permission evidence requested during the authorized Modrinth moderation process.
+  - [x] Record the owner's local player-check confirmation, clear only Survival's gate, export non-draft `2026.10.12`, and verify its exact archive plus fresh-start/pinned-restart/save-stop behavior. All 18 unit tests pass; Creative and clients remain gated.
+- [ ] Before client publication, finalize minimal/Pro selections, review the legacy 56 shared
+  overrides for intended distribution/client placement, verify permissions, and test the
+  exact named candidate in a clean client instance.
 - [ ] Choose hosting/publication and a pinned updater release after checking distribution permissions.
   For Modrinth, prepare project summary/description, categories, license, optional icon/support
   links, and version metadata/changelog. Obtain publication authorization before uploading.
@@ -361,9 +390,11 @@ requires exporting `.mrpack`, not a separate repository-level Modrinth config fi
 explains that exact files hosted on Modrinth are eligible for use in Modrinth modpacks;
 review other bundled content separately and meet any applicable conditions.
 
-Fresh local dedicated-server world startup and console shutdown passed. Remote installation,
-updater releases/removals, rollback, world migration, and real player gameplay/permissions
-have not been tested. The older root export has not been regenerated.
+Fresh local dedicated-server world startup and console shutdown passed. The owner later
+confirmed the local player check, permitting the non-draft Survival candidate recorded in
+[release preparation](modrinth-release.md#non-draft-candidate). Remote installation,
+updater releases/removals, rollback, and world migration have not been tested.
+The older root export has not been regenerated.
 
 Both target mod lists and the retention decision are now available. Remaining checks
 include existing mod compatibility/dependencies and choosing hosted distribution before

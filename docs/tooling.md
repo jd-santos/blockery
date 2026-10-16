@@ -76,9 +76,10 @@ No Chat Reports server preferences, and FerriteCore defaults are not bundled. Vo
 networking and upload paths, WorldEdit storage/permissions, and chat integration settings
 remain target-specific review work, not implicit overrides. See the
 [server audit](../todo/work/001-bloom-migration/server-audit.md) for selection evidence.
-All recipes remain drafts. MiniHUD and other membership decisions can wait until client
-release preparation. Dedicated-server behavior and target settings must be verified before
-real deployment.
+Survival's local player check is owner-confirmed, and its `2026.10.12` non-draft candidate
+has passed exact archive, fresh-start, and pinned-restart checks. Other recipes remain gated.
+MiniHUD and other membership decisions can wait until client release preparation.
+Target settings and Bloom deployment behavior still need verification before real deployment.
 
 ```sh
 uv run --script scripts/build_pack.py build blockery-pro --version infrastructure-preview --draft
@@ -87,8 +88,12 @@ uv run --script scripts/build_pack.py build blockery-server-creative --version p
 ```
 
 Each command stages selected sources in a temporary pack, refreshes its own index, and
-exports into ignored `local/dist/`. Root `pack.toml`, `index.toml`, metadata, and configs
-are not modified. Existing output files are never overwritten; choose a new version.
+exports into ignored `local/dist/`. Every recipe also stages exact copies of root `LICENSE`
+and `build/NOTICE.txt` as `blockery-notices/LICENSE.txt` and `blockery-notices/NOTICE.txt`.
+These two non-runtime files carry GPL text, license scope, third-party references, and the
+source repository link. They are fixed build inputs, not configurable recipe paths;
+missing inputs and symlinks fail. `plan` lists their destinations separately as `notices`.
+Root `pack.toml`, `index.toml`, metadata, configs, and notice sources are not modified. Existing output files are never overwritten; choose a new version.
 If copying an export fails or is interrupted by Python, the builder removes its own
 partial output so the same version can be retried. A forced process kill may still leave
 a partial file; inspect it before manually removing it.
@@ -98,12 +103,16 @@ not publishable or runtime-validated releases. Empty recipes cannot export.
 After resolving all pending checks in a recipe and its ancestors, a normal build uses:
 
 ```sh
-uv run --script scripts/build_pack.py build blockery --version YOUR_RELEASE_VERSION
+uv run --script scripts/build_pack.py build blockery-server-survival --version 2026.10.12
 ```
 
-Replace `YOUR_RELEASE_VERSION` with a real version instead of `unreleased`. Removing pending checks is a deliberate
+`2026.10.12` is the selected first Survival server release version. Its owner-confirmed
+local player check cleared the last Survival gate, and the non-draft export is retained
+at `local/dist/blockery-server-survival-2026.10.12.mrpack`. Existing outputs are immutable;
+running the command again refuses to overwrite it. Creative retains its variation-review
+gate, and both client recipes remain gated. Removing pending checks is a deliberate
 release-preparation edit, not something the builder does automatically. A successful
-export does not establish mod compatibility, permissions, or deployment safety.
+export does not establish deployment safety or authorize publication.
 
 Private/runtime filenames, traversal, and symlinks are rejected. Explicit config inclusion
 is an allowlist, not a secret-content scanner: review contents before adding a path.

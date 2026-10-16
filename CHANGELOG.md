@@ -14,9 +14,12 @@ This project does not currently declare a Semantic Versioning policy.
 - Add server-only Better Fabric Console, its Adventure Platform dependency, and Inhabitor for both deployment targets.
 - Add uv/Python build recipes for Blockery, Blockery Pro, and survival/creative server outputs, with draft release gates and isolated exports.
 - Pin server-only Fabric Permissions API 0.5.0 to resolve WorldEdit's permissions integration warning.
+- Include GPL text, scoped third-party notices, and a source link in every recipe export.
 
 ### Changed
 
 - Record Fabric Loader 0.19.5 as the shared pack loader.
 - Select 11 reviewed shared gameplay configs for both server drafts and restrict armor stand resizing to operators.
 - Keep personal Axiom settings and generated No Chat Reports encryption data outside the public pack.
+- License original Blockery material under GPL-3.0-or-later while preserving third-party terms.
+- Clear Survival's local release checks after owner-confirmed player validation and prepare the non-draft `2026.10.12` candidate; client and Creative releases remain gated.

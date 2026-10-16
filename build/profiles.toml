@@ -109,10 +109,7 @@ files = [
   "config/shulkerdropstwo.json5",
   "config/silencemobs.json5",
 ]
-pending = [
-  "Verify dedicated-server compatibility and shared gameplay config behavior.",
-  "Review target-specific networking, storage, permissions, and chat integration settings.",
-]
+pending = []
 
 [profiles.blockery-server-creative]
 name = "Blockery Server Creative"
