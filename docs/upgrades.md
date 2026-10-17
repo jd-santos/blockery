@@ -198,9 +198,12 @@ A coordinated release set should identify:
 
 Separate Modrinth projects have separate version IDs. They can still belong to one
 release set. CI candidate artifacts are temporary test downloads, not public
-releases or a stable production download endpoint. Future publishing should attach
-the tested bytes and checksums to a deliberate release, not rebuild them at upload.
-A gated distribution must not be silently promoted just because another one is ready.
+releases or a stable production download endpoint. The explicit
+[release workflow](tooling.md#prepare-an-official-pack) builds one gated distribution
+and attaches its archive, checksums and source manifest to a draft GitHub release.
+Test those bytes and publish the same draft without rebuilding. A gated distribution
+must not be silently promoted just because another one is ready. Modrinth publishing
+and host deployment remain manual.
 
 Installed clients do not update merely because new archives exist. Give players the
 matching base or Extras client candidate and an explicit launcher update/import path.
@@ -208,10 +211,12 @@ Do not tell them to update individual mods independently of the released pack.
 
 ## CI candidates
 
-`.github/workflows/validate.yml` runs on pull requests, pushes to `main`, and manual
-workflow dispatch. It uses read-only repository permissions and pinned action revisions,
-Python 3.11, Go 1.27.1, and the documented Packwiz revision. It runs fixtures and source
-validation, builds all four draft recipes, audits archives, and checks source immutability.
+`.github/workflows/validate.yml` runs fixtures and source validation on pull requests,
+pushes to `main`, and manual dispatch. Only pack/build-related PRs or a manual run with
+`build_drafts` selected export the four drafts, audit archives and check source immutability.
+Documentation/skill-only PRs and main pushes do not produce candidate artifacts.
+The jobs use read-only permissions and pinned actions, Python 3.11 and, when building,
+Go 1.27.1 with the documented Packwiz revision. See [CI routing](tooling.md#ci-checks-first-packs-when-needed).
 
 The uploaded artifact contains only the four draft `.mrpack` files, `SHA256SUMS`, and
 `ci-report.json`, retained for seven days. The audit checks ZIP safety/CRC, identities,

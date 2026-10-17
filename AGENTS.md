@@ -32,14 +32,21 @@ These commands require Packwiz. Run initialization only when `pack.toml` does no
 - **Export client pack:** `packwiz modrinth export`
 - **Update managed files:** `packwiz update --all`
 
-There is no automated test, build, deploy, or publish command yet.
+- **Offline tests:** `python3 -m unittest discover -s tests -q`
+- **Validate source:** `python3 scripts/validate_pack.py`
+- **Build named packs:** `uv run --script scripts/build_pack.py`, following [tooling](docs/tooling.md).
+
+CI runs lightweight checks on PRs/main and draft builds only for relevant PRs or an
+explicit manual request. The separate main-only release workflow prepares a draft
+GitHub release, never a deployment. Do not run it or publish without owner approval.
 
 ## Documentation index
 
 - [README.md](./README.md): architecture, repository layout, and operating rules.
 - [CONTEXT.md](./CONTEXT.md): canonical definitions for pack, deployment target, target variation, and runtime state.
 - [deploy/README.md](./deploy/README.md): target layout, overlay policy, and intended deployment flow.
-- [docs/tooling.md](./docs/tooling.md): pinned Packwiz build and update procedure.
+- [docs/tooling.md](./docs/tooling.md): pinned Packwiz, CI routing, and manual release preparation.
+- [.agents/skills/blockery-release-notes/SKILL.md](./.agents/skills/blockery-release-notes/SKILL.md): pack release-note workflow and historical example, layered on the shared writing skills.
 - [docs/](./docs/): add durable operating notes here when the relevant workflow is known.
 
 ## File-specific notes

@@ -20,9 +20,12 @@ This project does not currently declare a Semantic Versioning policy.
 - Add read-only CI checks, four draft exports, archive audits, checksums, and seven-day candidate artifacts, without publishing or deployment.
 - Document coordinated upgrades, recommended final testing, and manual rollback using retained pack archives and Bloom backups.
 - Add read-only dependency audits of locally supplied, hash-verified pinned JARs, including nested Fabric candidates, aliases, side filtering and version predicates. Missing evidence and resolver choices remain unknown; no downloads, pin changes or release approval.
+- Add an explicit, main-only workflow that prepares one gated pack as a draft GitHub release with checked-in notes, an audited archive, checksums and source provenance. Publishing, Modrinth submission and deployment remain manual.
+- Add a repository-local release-notes skill using the previous Survival release and the shared writing skills.
 
 ### Changed
 
+- Keep CI lightweight for documentation/skill-only PRs and main pushes. Build four seven-day drafts only for pack/build-related PRs or an explicit manual request.
 - Name the client distributions Blockery Client (`blockery-client`) and Blockery Extras Client (`blockery-extras-client`), keeping Blockery as the umbrella name and server identities unchanged.
 - Record Fabric Loader 0.19.5 as the shared pack loader.
 - Select 11 reviewed shared gameplay configs for both server drafts and restrict armor stand resizing to operators.

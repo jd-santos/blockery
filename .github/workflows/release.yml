@@ -1,0 +1,133 @@
+---
+name: Prepare release
+
+"on":
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: Distribution to build (must have no pending recipe checks)
+        type: choice
+        required: true
+        options:
+          - blockery-client
+          - blockery-extras-client
+          - blockery-server-survival
+          - blockery-server-creative
+      version:
+        description: New version, e.g. 2026.10.17 (without -draft)
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ inputs.profile }}-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      tag: ${{ steps.plan.outputs.tag }}
+      archive: ${{ steps.plan.outputs.archive }}
+    env:
+      PROFILE: ${{ inputs.profile }}
+      VERSION: ${{ inputs.version }}
+    steps:
+      - name: Check out the dispatched source commit
+        # v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        # v5.6.0
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.11"
+      - name: Check release gates and notes
+        id: plan
+        run: |
+          python -m scripts.prepare_release plan "$PROFILE" \
+            --version "$VERSION" > "$RUNNER_TEMP/release-plan.json"
+          jq -r '"tag=" + .tag, "archive=" + (.archive | split("/") | last)' \
+            "$RUNNER_TEMP/release-plan.json" >> "$GITHUB_OUTPUT"
+      - name: Refuse an existing release tag
+        env:
+          TAG: ${{ steps.plan.outputs.tag }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Network/auth failures must fail the job, not mean "tag absent".
+          ENDPOINT="repos/$GITHUB_REPOSITORY/git/matching-refs/tags/$TAG"
+          gh api --paginate "$ENDPOINT" --jq '.[].ref' \
+            > "$RUNNER_TEMP/matching-tags.txt"
+          if grep -Fxq "refs/tags/$TAG" "$RUNNER_TEMP/matching-tags.txt"; then
+            echo "Tag already exists; choose a new version."
+            exit 1
+          fi
+      - name: Run fixture tests and source validation
+        run: |
+          python -m unittest discover -s tests -v
+          python scripts/validate_pack.py
+      - uses: ./.github/actions/setup-packwiz
+      - name: Build and audit one non-draft pack
+        run: |
+          python -m scripts.prepare_release build "$PROFILE" \
+            --version "$VERSION"
+      - name: Check source immutability
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain --untracked-files=all)"
+      - name: Transfer the audited bytes to the draft-release job
+        # v4.6.2
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: release-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            local/dist/${{ steps.plan.outputs.archive }}
+            local/release/SHA256SUMS
+            local/release/release-set.json
+            local/release/release-notes.md
+          if-no-files-found: error
+          retention-days: 1
+
+  draft-release:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TAG: ${{ needs.build.outputs.tag }}
+      ARCHIVE: ${{ needs.build.outputs.archive }}
+      SOURCE_SHA: ${{ github.sha }}
+    steps:
+      - name: Download only this run's audited bundle
+        # v4.3.0
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: release-${{ github.run_id }}-${{ github.run_attempt }}
+          path: bundle
+      - name: Verify bytes and create a draft release
+        working-directory: bundle
+        run: |
+          # The transfer preserves paths relative to the common local/ root.
+          REVISION="$(jq -r .sourceRevision release/release-set.json)"
+          test "$REVISION" = "$SOURCE_SHA"
+          test "$(jq -r .tag release/release-set.json)" = "$TAG"
+          (cd dist && sha256sum --check ../release/SHA256SUMS)
+          NOTES_HASH="$(jq -r .releaseNotes.sha256 release/release-set.json)"
+          printf '%s  release/release-notes.md\n' "$NOTES_HASH" \
+            | sha256sum --check
+          TITLE="$(jq -r '.artifacts[0] | .name + " " + .versionId' \
+            release/release-set.json)"
+          gh release create "$TAG" \
+            "dist/$ARCHIVE" release/SHA256SUMS release/release-set.json \
+            --target "$SOURCE_SHA" --title "$TITLE" \
+            --notes-file release/release-notes.md --draft --latest=false
+          echo "Draft release created. Test attached bytes before publishing." \
+            >> "$GITHUB_STEP_SUMMARY"

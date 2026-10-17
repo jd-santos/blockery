@@ -34,6 +34,85 @@ Do not replace the pinned revision with `@latest`. To update Packwiz, choose and
 record a new commit, build it locally, inspect its embedded module information,
 and review the changes it produces in a disposable pack before adopting it here.
 
+## CI: checks first, packs when needed
+
+The **Validate** workflow runs offline fixture tests and source/recipe checks on
+pull requests and pushes to `main`. Opening a PR doesn't always produce packs:
+
+| Change or event | Build packs? | Retained downloads |
+| --- | --- | --- |
+| Docs, README, task records or agent skills only | No | None |
+| PR changing pack inputs, recipes, scripts, tests or CI | Four draft packs, with archive audits | Seven-day Actions artifacts |
+| Push to `main` | No; lightweight checks only | None |
+| Manual **Validate** run | Only if **build_drafts** is checked | Seven-day drafts if requested |
+| Manual **Prepare release** run on `main` | One selected non-draft pack | Assets on a draft GitHub release |
+
+Path routing uses the full PR diff, including deleted files and both sides of moves.
+Unknown source locations trigger draft builds rather than silently skipping them.
+Target deployment files are outside the packs and do not trigger exports. The single
+`validate` job remains the always-running check; `drafts` is intentionally conditional.
+If configuring required status checks, require `validate`, not an unconditional draft build.
+
+No push, tag or GitHub release event publishes packs automatically. The release
+workflow is a separate, explicit action. CI doesn't run Minecraft or publish to
+Modrinth, and it never deploys to Bloom.
+
+## Prepare an official pack
+
+Use **Actions → Prepare release → Run workflow**, selecting `main`, one distribution,
+and a new version. This prepares a **draft GitHub release** for review. It does not
+publish the release. A run on another branch is skipped.
+
+Before running it:
+
+1. Review the selected recipe and its inherited `pending` checks. Resolve them from
+   actual evidence; the workflow will not clear them. Client and Creative gates still apply.
+2. Write and review release notes at `docs/releases/<tag>.md`. The tag is the profile
+   without `blockery-`, followed by `-<version>`. For example, a future client version
+   `2026.10.20` would use `docs/releases/client-2026.10.20.md`. This example is not a
+   selected release. Commit the notes and intended pack changes to `main` through a PR.
+3. Use the repository skill at
+   [`.agents/skills/blockery-release-notes/SKILL.md`](../.agents/skills/blockery-release-notes/SKILL.md)
+   when drafting notes. It builds on the shared writing skills and the last Survival note.
+
+The workflow validates source, runs tests, builds one pack with the pinned Packwiz
+revision **without `--draft`**, and audits the resulting archive. It attaches:
+
+- The selected `.mrpack`, with its normal distribution name and release version.
+- `SHA256SUMS`, for that archive.
+- `release-set.json`, recording the source commit, platform versions, Packwiz revision,
+  selected distribution, archive hash, release-notes hash and audit scope.
+
+The build job has read-only permissions. A separate upload job receives only that
+run's bundle and uses contents-write permission to create the draft release. Its
+internal transfer artifact lasts one day; GitHub release assets do not have the
+seven-day CI expiry. Existing tags/releases and local output files aren't replaced.
+A run that fails after creating a draft may leave it for inspection. Inspect it
+rather than deleting assets or retrying with an overwrite option.
+
+Download and test **the archive attached to the draft release**, using the
+[quick client playtest](playtest.md) or appropriate server checks. Review the notes
+and checksum, then publish that same draft manually. Don't rebuild between testing
+and publishing. An empty recipe gate list is not runtime approval for new pins.
+If a candidate fails, fix the source and prepare a new version rather than replacing
+its bytes. Do not republish the existing `server-survival-2026.10.12` release.
+
+The workflow sets neither a public release nor a new “latest” release automatically.
+Choose the intended visibility/latest status when publishing. Modrinth submission
+and host installation remain separate manual operations.
+
+For local inspection, the read-only preflight is:
+
+```sh
+python -m scripts.prepare_release plan blockery-client --version 2026.10.20
+```
+
+It will refuse while that client's gates or notes are missing. The `build` subcommand
+prepares the same audited bundle locally under `local/dist/` and `local/release/`,
+but makes no GitHub changes. It requires Packwiz, a source checkout, fresh output
+paths and the same notes/gates. Only CI's clean source-immutability check ties an
+uploaded release bundle to its recorded commit; local builds aren't proof of clean source.
+
 ## Coordinated upgrades
 
 The [upgrade guide](upgrades.md) describes report-first maintenance, temporary disabling,
