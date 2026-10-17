@@ -28,7 +28,8 @@ It produces two player packs and two server packs from one source, so we don't h
 to maintain a separate copy of everything for each one.
 
 The current shared versions are **Minecraft 1.21.10** and **Fabric Loader 0.19.5**.
-Coordinated upgrades and Modrinth publishing are still being set up.
+Upgrade application and Modrinth publishing remain manual. An explicit GitHub
+workflow can prepare a pack for review; it doesn't publish or deploy it.
 
 ## What's in the client packs?
 
@@ -147,11 +148,13 @@ covers recipe editing, validation limits, and tests.
 | `build/` | Recipes for each pack and reversible mod exclusions. |
 | `scripts/`, `tests/` | Build, validation, and maintenance tools, with offline fixture tests. |
 | `deploy/targets/` | Reserved for verified server-specific settings; no differences have been confirmed yet. |
-| `.github/workflows/validate.yml` | Automated checks and short-lived draft artifacts, not public releases or deployments. |
+| `.github/workflows/` | Lightweight CI, conditional PR draft builds, and an explicit draft-release workflow. Nothing deploys servers. |
 
 For a specific task:
 
 - **Build or validate:** [Tooling](docs/tooling.md).
+- **Prepare a release:** [Official pack workflow](docs/tooling.md#prepare-an-official-pack).
+  Pack builds happen on relevant PRs or by explicit request, not on every push.
 - **Review upgrades or rollback:** [Upgrade guide](docs/upgrades.md). The tools report
   candidates and audit locally supplied pinned JARs; automated version application
   isn't implemented yet.

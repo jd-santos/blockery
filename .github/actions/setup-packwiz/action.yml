@@ -1,0 +1,27 @@
+name: Set up pinned Packwiz
+description: Build and verify the documented Packwiz revision.
+runs:
+  using: composite
+  steps:
+    - name: Set up Go
+      # v5.5.0
+      uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5
+      with:
+        go-version: "1.27.1"
+        cache: false
+    - name: Install the documented Packwiz revision
+      shell: bash
+      env:
+        GOTOOLCHAIN: local
+      run: |
+        test "$(go env GOVERSION)" = "go1.27.1"
+        mkdir -p "$RUNNER_TEMP/packwiz/bin"
+        GOBIN="$RUNNER_TEMP/packwiz/bin" \
+          go install github.com/packwiz/packwiz@ef87d964f8cb
+        go version -m "$RUNNER_TEMP/packwiz/bin/packwiz" \
+          | tee "$RUNNER_TEMP/packwiz-build-info.txt"
+        awk '$1 == "mod" &&
+          $2 == "github.com/packwiz/packwiz" &&
+          $3 == "v0.0.0-20260906154125-ef87d964f8cb" {found=1}
+          END {exit !found}' "$RUNNER_TEMP/packwiz-build-info.txt"
+        echo "$RUNNER_TEMP/packwiz/bin" >> "$GITHUB_PATH"

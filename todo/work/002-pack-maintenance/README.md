@@ -32,19 +32,26 @@ pins. Add small CI checks and draft artifacts without automating live updates.
 - It is acceptable to finish a bounded report-first foundation and explicitly defer the
   full upgrade apply engine or downloaded-JAR dependency audit. Stubs must refuse unsupported
   operations rather than report success. Document actual coverage and remaining work.
-- CI should run tests, validate plans, build draft outputs with the pinned Packwiz revision,
-  audit exports, and retain only intended candidate artifacts/reports. No publishing,
-  deployment, production credentials, EULA acceptance, or live instance access is included.
+- CI runs fixture/source checks on every PR and main push. Only pack/build-related PRs
+  build and audit four drafts; main pushes do not build or upload packs. A manual CI run
+  may request drafts. Documentation and skill-only PRs keep the lightweight checks.
+- The owner authorized an explicit release workflow: choose one distribution and version
+  on main, require checked-in release notes and resolved recipe gates, build and audit a
+  non-draft archive, then attach that exact archive, checksums and source manifest to a
+  draft GitHub release. Publishing remains a human action after testing those bytes.
+  No Modrinth publication, deployment, production credentials or live instance access.
 - Rollback preparation belongs in a short manual playbook using retained pack archives and
   Bloom backups. Extensive mrpack4server-specific rehearsal is not a prerequisite for this
   maintenance tooling. Recommended testing goes at the end of the upgrade procedure.
-- A coordinated release set should identify each artifact, source revision, Minecraft and
-  Loader versions, and checksums. Public release automation is a later slice; candidate CI
-  artifacts are not published releases. Promote tested bytes rather than rebuilding them.
+- A release manifest identifies the selected artifact, source revision, Minecraft and
+  Loader versions, and checksums. Candidate CI artifacts are not published releases.
+  Test the non-draft archive attached to the draft release, then publish those same bytes
+  without rebuilding. Recipe gates alone do not prove a new candidate was runtime-tested.
 - No actual Minecraft, Loader, mod pin, selection, or client configuration upgrade is
   authorized by this implementation request. Preserve release gates. The owner subsequently
   authorized committing ready work and shipping through a topic-branch PR if appropriate.
-  Releases, host changes, and deletion of retained artifacts remain unauthorized.
+  Running the new release workflow, publishing releases, host changes, and deletion of
+  retained artifacts remain unauthorized in this implementation session.
 
 ## Ownership
 
@@ -66,8 +73,9 @@ part of this slice.
   and unsafe paths. Temporary disables retain pins and affect exports consistently.
 - Existing builder commands remain compatible with an empty/absent disable policy. All
   existing and added tests pass. No runtime source pin or selected entry changes in this slice.
-- CI uses read-only permissions, safe PR events, verified action pins, pinned Packwiz, and
-  explicit artifact paths. It cannot publish, deploy, or clear a recipe gate.
+- Validation/build jobs use read-only permissions, safe PR events, verified action pins,
+  pinned Packwiz and explicit artifact paths. Only the manual release upload job has
+  contents-write permission; it creates drafts and cannot clear recipe gates or deploy.
 - Maintained docs explain the real interfaces, scope of validation, temporary disables,
   upgrade path, recommended final testing, and a practical archive/backup rollback procedure.
 - Correctness and design reviews inspect the integrated implementation. Local validation
@@ -108,6 +116,54 @@ part of this slice.
   gates; add Modrinth API publishing only if useful after project approval. [context: medium]
 - [ ] Consider a repository-local agent skill after the maintained upgrade procedure and CLI
   have settled. A skill should reference the procedure, not duplicate or replace it. [context: small]
+
+## CI and explicit release slice
+
+The parent owns implementation in the current checkout. Separate fresh correctness
+and design reviews are complete, with final small corrections parent-validated.
+No sibling worktrees or unrelated `research.md` are in scope. The README rewrite is
+already committed; the owner authorized a local commit of this slice on
+`readme-player-guide`. Pushing remains a separate step. The last published Survival note is the style reference for a repository-local
+release-notes skill, layered on `core-writing`, `technical-writing` and `changelog-writer`.
+
+- [x] Split lightweight validation from conditional PR/manual draft builds; test path routing.
+- [x] Add a manual, single-distribution, main-only release workflow with normal recipe gates,
+  archive audit, provenance/checksums, checked-in notes and draft-only GitHub delivery.
+- [x] Add the repo-local release-notes skill and retain the last published note as its example.
+- [x] Update maintained docs, exclusions and changelog; validate without creating a release.
+- [x] Complete fresh correctness/design reviews and address blocking findings.
+
+Both reviewers returned **OK with notes**, with no blocking findings. Workflow
+`4b2d4d00-44d2-4e80-8704-a9874b6eca1b` retained correctness review
+`a49bba85-bac4-43d5-9073-3d543d40be91` and design review
+`10cd9b7d-10ca-4155-9c36-8e78a5a3826c`. They inspected code and docs, not executed
+checks. The parent added notes-hash verification before draft creation, clarified that
+writing skills are operator-installed with an inline fallback, labeled the historical
+note a fixed snapshot and tightened failure-recovery wording. These small corrections
+are parent-validated; no additional review round is warranted. Optional pin/profile-list
+consistency checks and narrower tooling-path routing are not delivery blockers and are
+not added to this slice.
+
+The initial workflow `a9c5164c-6c0e-4e25-97a4-88b93a31f1a6` failed before both children
+started: the reviewer override resolved to `openrouter/openai/gpt-6-luna`, outside
+`modelScope`. No child sessions persisted and a correctness resume was unavailable.
+The native same-protocol retry used registered, allowed
+`openrouter/deepseek/deepseek-v4.1-flash` without changing Pi settings or using an
+external fallback. No Pi installation repair was attempted.
+
+Local validation passes 88 offline fixtures (13 added), Ruff including import ordering,
+fresh CLI Pyright for the four added Python files, actionlint 1.7.7 for both workflows,
+and source validation for 106 indexed files/four recipes. The pinned Packwiz refresh
+leaves `pack.toml` and `index.toml` unchanged after excluding `.agents/`. No pins,
+recipes, indexed settings or retained archives changed. The two new test modules have
+stale active-LSP import-export findings despite clean CLI Pyright and executable tests;
+no source ignores or host repairs were added. GitHub workflow execution, a fresh runtime
+playtest, and actual release creation/publication are not claimed. A local shell fixture
+accepts a valid bundle and rejects changed release notes, using macOS `shasum` in place
+of Linux `sha256sum`; the initial local checksum-command attempts were unsupported by
+the host utility. No GitHub commands were executed by this fixture. This slice is
+included in the owner-authorized local commit; no push, release-workflow run or
+publication is claimed. Unrelated `research.md` remains untouched.
 
 ## Dependency-audit slice
 

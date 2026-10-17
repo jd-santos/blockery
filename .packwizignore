@@ -2,6 +2,7 @@
 /*.md
 /.git/
 /.github/
+/.agents/
 /.gitattributes
 /.gitignore
 /.packwizignore
